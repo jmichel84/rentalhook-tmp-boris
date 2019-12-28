@@ -1,0 +1,18 @@
+<template>
+<section>
+  <p>
+  <label>
+    <input-title>
+      Kautionsbetrag
+    </input-title>
+    <input type="number" style="width: 9em;" min="1" max="999999" step="1" value.bind="doc.deposit | number" required unit="€">
+  </label>
+  </p>
+  <p>
+    <label>
+  <input-title>Erhalten am</input-title>
+  <input type="text" size="10" datepicker value.two-way="doc.deposit_date | date" required>
+  </label>
+</p>
+</section>
+</template>

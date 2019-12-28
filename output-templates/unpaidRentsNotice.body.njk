@@ -1,0 +1,43 @@
+<p>
+Zu den mietvertraglichen Plichten gehört die Zahlung der Miete (einschließlich
+Betriebskostenvorauszahlung/-pauschale, Heizkostenvorauszahlung, sonstige Zuschläge) in Höhe von
+{{rent | currency("EUR")}} monatlich im Voraus, spätestens bis zum dritten Werktag des Monats.
+{% if partial_rent > 0 %}
+Trotz Fälligkeit konnte man für den Zeitraum {{unpaid_period}} jedoch nur eine Zahlung in Höhe von
+{{partial_rent | currency("EUR")}} verzeichnen.{% else %}
+{% endif %}
+</p>
+<p>
+Sie befinden bzw. befanden sich somit mit der Entrichtung der Miete in Höhe von insgesamt {{rent_due | currency("EUR")}}
+in Verzug.
+{% if lessors.length == 1 %}
+Ich fordere
+{% else %}
+Wir fordern
+{% endif %}
+Sie hiermit auf, Ihre Plicht zur pünktlichen Mietzinszahlung bis spätestens zum {{payment_due_date | date("LL")}}
+nachzuholen bzw. zukünftig einzuhalten.
+</p>
+<p>
+Sollten Sie der Auforderung nicht nachkommen,
+{% if lessors.length == 1 %}
+werde ich
+{% else %}
+werden wir
+{% endif %}
+von dem Recht zur fristlosen bzw. hilfsweise fristgemäßen Kündigung Gebrauch machen.
+{% if lessors.length == 1 %}
+Ich werde mir
+{% else %}
+Wir werden uns
+{% endif %}
+die Geltendmachung etwaiger durch die Plichtverletzung entstandener Kosten im Wege des Schadensersatzes
+sowie weitere gerichtliche Schritte vorbehalten.
+Im gemeinsamen Interesse
+{% if lessors.length == 1 %}
+weise ich
+{% else %}
+weisen wir
+{% endif %}
+Sie deshalb nochmals daraufhin, sich zuküntig vertragsgemäß zu verhalten.
+</p>

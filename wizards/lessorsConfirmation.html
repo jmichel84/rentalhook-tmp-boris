@@ -1,0 +1,23 @@
+<template>
+<section>
+  <p>
+    <input-title collapsed>Grund der Vermieterbestätigung
+    </input-title>
+    <choice>
+    <choice-option required name="lc-reason" selected.two-way="doc.confirmation_reason"
+      key="in" label="Einzug"></choice-option>
+    <choice-option required name="lc-reason" selected.two-way="doc.confirmation_reason"
+      key="out" label="Auszug"></choice-option>
+  </choice>
+  </p>
+<p>
+  <label>
+<input-title>Zum</input-title>
+<input type="text" size="10" datepicker value.two-way="doc.in_out_date | date" required>
+</label>
+</p>
+
+
+
+</section>
+</template>

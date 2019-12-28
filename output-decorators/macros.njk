@@ -1,0 +1,346 @@
+
+{# =============================================================================
+
+Displays an array of persons as an string of names separated by commas.
+
+From:
+  [Object, Object, Object]
+
+To:
+  "John Doe, Jane Doe et Jack Doe"
+
+============================================================================= #}
+
+{% macro namesInline(persons = []) -%}
+  {%- for person in persons -%}
+    {%- if loop.first==false and loop.last==false -%},
+    {% elif loop.first==false and loop.last==true %} and
+    {% endif %}
+    {{person.first_name}} {{person.last_name}}
+  {%- endfor -%}
+{%- endmacro %}
+
+{# =============================================================================
+
+Displays the contact details from an array of persons in a vertical list.
+
+From:
+  [Object, Object]
+
+To:
+  Nom : John Doe
+  Qualité : Personne physique
+  Domicile : 12 rue des Prés, 67000 Strasbourg, France
+  Tél : 06 12 34 56 78
+
+  et
+
+  Nom : Jane Doe
+  Qualité : Personne physique
+  Domicile : 12 rue des Prés, 67000 Strasbourg, France
+
+============================================================================= #}
+
+{% macro contactDetails(persons = []) %}
+  {% for person in persons %}
+
+
+    {% if person.lessor_type == 'legalEntity' %}
+
+      Dénomination : {{person.legal_entity_name}}
+
+      <br/>
+      Juritische Person
+      <br/>
+      Vertreten durch : {{person.first_name}} {{person.last_name}}
+
+      {% if person.address -%}
+        <br/>
+        Hauptsitz : {{person.address.formatted_address}}
+      {%- endif %}
+
+    {% else %}
+
+      Name : {{person.first_name}} {{person.last_name}}
+
+      <br/>
+      Privatperson
+
+      {% if person.address -%}
+        <br/>
+        Wohnsitz : {{person.address.formatted_address}}
+      {%- endif %}
+
+    {% endif %}
+
+    {% if person.email -%}
+      <br/>
+      E-mail : {{person.email}}
+    {%- endif %}
+
+    {% if person.tel -%}
+      <br/>
+      Tel. : {{person.tel}}
+    {%- endif %}
+
+    {% if loop.last == false %}
+      <br/><br/>et<br/><br/>
+    {% endif %}
+
+  {%- endfor -%}
+{%- endmacro %}
+
+{# =============================================================================
+
+Displays the duration in a readable format.
+
+From:
+  {years: 5, months: 1: days: 0}
+
+To:
+  '5 ans, 1 mois'
+
+============================================================================= #}
+
+{% macro duration(duration) -%}
+  {%- if duration.years -%}
+    {{duration.years}}
+    {% if duration.years > 1 %}Jahre{% else %}Jahr{% endif -%}
+    {%- if duration.months or duration.days %}, {% endif -%}
+  {%- endif -%}
+  {% if duration.months -%}
+    {{duration.months}}
+    {% if duration.months > 1 %}Monate{% else %}Monat{% endif -%}
+    {%- if duration.days %}, {% endif -%}
+  {%- endif -%}
+  {% if duration.days -%}
+    {{duration.days}}
+    {% if duration.days > 1 %}Tage{% else %}Tag{% endif -%}
+  {%- endif -%}
+{%- endmacro %}
+
+{# =============================================================================
+
+Displays the inventory of an inventory area in a tabular format.
+
+From:
+  {walls: 'good', floor: 'new': windows: 'bad'}
+
+To:
+  +------------------+---------+
+  | Éléments         | État    |
+  +------------------|---------+
+  | Murs             | Bon     |
+  | Sol, plinthes    | Neuf    |
+  | Fenêtres, volets | Mauvais |
+  +------------------+---------+
+
+============================================================================= #}
+
+{% macro inventoryArea(room, type) -%}
+
+  {% set articlesCount = room | length %}
+
+  {# > 1 because comments counts as 0 #}
+  {% if articlesCount > 1 or (room.comments==null and articlesCount > 0) %}
+    <table class="room-properties">
+      <tr>
+        <th>Éléments</th>
+        <th>État</th>
+      </tr>
+      {% for name, condition in room %}
+        {% if name != 'comments' %}
+          <tr>
+            <td class="room-object">
+              {% if name == "walls" %}                          Murs
+              {% elif name == 'floor' %}                        Sol, plinthes
+              {% elif name == "ceiling" %}                      Plafond
+              {% elif name == "windows" %}                      Fenêtres, volets
+              {% elif name == "finish_carpentry" %}             Portes, menuiseries
+              {% elif name == "heaters" %}                      Chauffage, radiateurs
+              {% elif name == "lighting" %}                     Éclairage
+              {% elif name == "outlets" %}                      Prises, interrupteurs
+              {% elif name == "closets" %}                      Placards
+              {% elif name == "refrigerator" %}                 Réfrigérateur
+              {% elif name == "freezer" %}                      Congélateur
+              {% elif name == "sink" and type == "kitchens" %}  Évier
+              {% elif name == "dishwasher" %}                   Lave-vaisselle
+              {% elif name == "extractor" %}                    Hotte aspirante
+              {% elif name == "cooking_plate" %}                Plaque de cuisson
+              {% elif name == "countertop" %}                   Plan de travail
+              {% elif name == "oven" %}                         Four
+              {% elif name == "microwave" %}                    Micro onde
+              {% elif name == "bathtub" %}                      Baignoire
+              {% elif name == "shower" %}                       Douche
+              {% elif name == "piping" %}                       Tuyauterie
+              {% elif name == "sink" and type == "bathrooms" %} Lavabo
+              {% elif name == "garage" %}                       Garage
+              {% elif name == "terrace" %}                      Terrasse
+              {% elif name == "balcony" %}                      Balcon
+              {% elif name == "cellar" %}                       Cave / cellier
+              {% elif name == "fireplace" %}                    Cheminée
+              {% elif name == "staircase" %}                    Escalier
+              {% elif name == "alarm" %}                        Alarme
+              {% elif name == "intercom" %}                     Interphone
+              {% elif name == "letter_box" %}                   Boîte aux lettres
+              {% else %}                                        {{name}}
+              {% endif %}
+            </td>
+            <td>
+              {% if condition == "new" %}             Neuf
+              {% elif condition == 'good' %}          Bon
+              {% elif condition == "intermediate" %}  Moyen
+              {% elif condition == "bad" %}           Mauvais
+              {% endif %}
+            </td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+    </table>
+  {% endif %}
+
+  {% if room.comments %}
+    <p>Commentaires&nbsp;: {{room.comments}}</p>
+  {% endif %}
+
+  {% if articlesCount == 0 or (room.comments and articlesCount == 1) %}
+    État non spécifié
+  {% endif %}
+
+{%- endmacro %}
+
+{# =============================================================================
+
+Displays an array of keys in a tabular format.
+
+From:
+  yes
+  [{number: '2', type: 'Porte d'entrée'}, {number: '1', type: 'Garage'}]
+
+To:
+  +--------+----------------+
+  | Nombre | Type de clé    |
+  +--------|----------------+
+  | 2      | Porte d'entrée |
+  | 1      | Garage         |
+  +--------+----------------+
+
+============================================================================= #}
+
+{% macro inventoryKeys(are_keys_delivered, keys) -%}
+
+  {% if are_keys_delivered == true -%}
+    <table>
+      <tr>
+        <th>Nombre</th>
+        <th>Type de clé</th>
+      </tr>
+      {% for key in keys %}
+        <tr>
+          <td>{{key.number}}</td>
+          <td>{{key.type}}</td>
+        </tr>
+      {%- endfor %}
+    </table>
+  {% else %}
+    <p>Pas de clés remises ce jour</p>
+  {% endif %}
+
+{%- endmacro %}
+
+{# =============================================================================
+
+Displays the water meter readings in a tabular format.
+
+From:
+  {reading: 1234}
+  {reading: 5678}
+
+To:
+  +---------------------+---------------------+
+  | Relevé d’eau froide | Relevé d’eau chaude |
+  +---------------------|---------------------+
+  | 1234                | 5678                |
+  +---------------------+---------------------+
+
+============================================================================= #}
+
+{% macro inventoryWaterMeters(cold_water_meter, hot_water_meter) -%}
+
+  <table>
+    <tr>
+      <th>Relevé d’eau froide</th>
+      <th>Relevé d’eau chaude</th>
+    </tr>
+    <tr>
+      <td>{{cold_water_meter.reading}}</td>
+      <td>{{hot_water_meter.reading}}</td>
+    </tr>
+  </table>
+
+{%- endmacro %}
+
+{# =============================================================================
+
+Displays the water gaz readings in a tabular format.
+
+From:
+  {number: 1234, reading: 5678}
+
+To:
+  +-----------------+--------+
+  | Numéro de série | Relevé |
+  +-----------------|--------+
+  | 1234            | 5678   |
+  +-----------------+--------+
+
+============================================================================= #}
+
+{% macro inventoryGasMeter(gas_meter) -%}
+
+  <table>
+    <tr>
+      <th>Numéro de série</th>
+      <th>Relevé</th>
+    </tr>
+    <tr>
+      <td>{{gas_meter.number}}</td>
+      <td>{{gas_meter.reading}}</td>
+    </tr>
+  </table>
+
+{%- endmacro %}
+
+{# =============================================================================
+
+Displays the water gaz readings in a tabular format.
+
+From:
+  {number: 1234, reading: 5678}
+  {reading: 9123}
+
+To:
+  +-----------------+----------------------------+----------------------------|
+  | Numéro de série | Relevé HP (heures pleines) | Relevé HC (heures creuses) |
+  +-----------------|----------------------------|----------------------------|
+  | 1234            | 5678                       | 9123                       |
+  +-----------------+----------------------------+----------------------------|
+
+============================================================================= #}
+
+{% macro inventoryElectricityMeter(electricity_peak_meter, electricity_off_peak_meter) -%}
+
+<table>
+  <tr>
+    <th>Numéro de série</th>
+    <th>Relevé HP (heures pleines)</th>
+    <th>Relevé HC (heures creuses)</th>
+  </tr>
+  <tr>
+    <td>{{electricity_peak_meter.number}}</td>
+    <td>{{electricity_peak_meter.reading}}</td>
+    <td>{{electricity_off_peak_meter.reading}}</td>
+  </tr>
+</table>
+
+{%- endmacro %}

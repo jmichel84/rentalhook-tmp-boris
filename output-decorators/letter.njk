@@ -1,0 +1,113 @@
+{% import "macros.njk" as macros %}
+
+{% if class == "letterFromLessorsToTenants" %}
+  {% set senders = lessors %}
+  {% set recipients = tenants %}
+{% elif class == "letterFromTenantsToLessors" %}
+  {% set senders = tenants %}
+  {% set recipients = lessors %}
+{% elif class == "letterFromLessorsToGuarantor" %}
+  {% set senders = lessors %}
+  {% set recipients = [guarantor] %}
+{% elif class == 'letterFromGuarantorToLessors' %}
+  {% set senders = [guarantor] %}
+  {% set recipients = lessors %}
+{% elif class == "letterFromSubtenantsToSublessors" %}
+  {% set senders = subtenants %}
+  {% set recipients = tenants %}
+{% elif class == "letterFromSublessorsToSubtenants" %}
+  {% set senders = tenants %}
+  {% set recipients = subtenants %}
+{% endif %}
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <style>{% include "letter.css" %}</style>
+  </head>
+  <body>
+
+    <header>
+
+      <p class="sender-area">
+        {% for person in senders %}
+          {{person.first_name}} {{person.last_name}}<br/>
+          {% if person.address -%}
+            {{person.address.formatted_address}}<br/>
+          {%- endif %}
+          {% if person.email -%}
+            E-mail : {{person.email}}<br/>
+          {%- endif %}
+          {% if person.tel -%}
+            Tel. : {{person.tel}}<br/>
+          {%- endif %}
+          {% if loop.last == false %}
+            <br/><!--et<br/><br/>-->
+          {% endif %}
+        {%- endfor %}
+      </p>
+
+      <div class="right-aligned">
+        <p class="recipient-area">
+          Adressiert an {{macros.namesInline(recipients)}}
+          {# <br/>
+          {{person.address.formatted_address | replace(",", "\n") | escape | nl2br }} #}
+        </p>
+        <p class="date">Den {{created_at | date("LL")}}</p>
+      </div>
+
+      <div class="object">
+        Anliegen : {% include type + ".object.njk" %}
+      </div>
+
+    </header>
+
+    <main>
+
+      <p>
+       {% if recipients.length == 1 %}
+        Sehr geehrte Dame, sehr geehrter Herr
+       {% else %}
+        Sehr geehrte Damen, sehr geehrter Herren
+       {% endif %}
+      </p>
+
+      <p>
+        {% if senders.length == 1 %}
+        Ich beziehe mich
+        {% else %}
+        Wie beziehen uns
+        {% endif %}
+        auf den Mietvertrag
+        {% if building_type=='flat' %}
+          für die Wohnung mit der Größe von {{living_area}} m<sup>2</sup>, gelegen
+          {% if floor_location=='ground_floor' %}
+            im Erdgeschoss
+          {% elif floor_location=='top_floor'  %}
+            auf der Endetage
+          {% else %}
+            auf dem {{floor_number}}. Obergeschoss
+          {% endif %}
+        {% else %}
+          zum Haus von {{living_area}} m<sup>2</sup>, gelegen
+        {% endif %}
+          in der Adresse
+        {% if location %}
+          «&nbsp;{{address.formatted_address}}&nbsp;» ({{location}}).
+        {% else %}
+          «&nbsp;{{address.formatted_address}}&nbsp;».
+        {% endif %}
+      </p>
+
+      {% include type + ".body.njk" %}
+
+       <p>
+         Mit freundlichen Grüßen.
+       </p>
+
+    </main>
+
+    <div style="height: 2.7cm"></div>
+
+  </body>
+</html>

@@ -1,0 +1,47 @@
+<p>
+Wie
+{% if nuisance_info_scource == 'neighbors' %}
+Ihre Nachbarn
+ {% elseif nuisance_info_scource == 'other_tenants'%}
+andere Mieter
+{% elseif nuisance_info_scource == 'official_bodies'%}
+amtliche Behördern
+{% endif %}
+mitgeteilt haben, ergaben sich im Haus andauernde Ruhestörungen.
+Folgende Aktivitäten wurden protokolliert: {{nuisance_activities}}.
+Die Störungen begannen in der Regel um {{nuisance_start_hour}} Uhr und dauerten bis um {{nuisance_end_hour}} Uhr. Die Lärmbelästigungen,
+welche Ihre Nachbarn erdulden mussten, waren erheblich.
+</p>
+<p>
+Soweit
+{% if lessors.length == 1 %}
+mir
+ {% else %}
+uns
+{% endif %} bekannt ist, begann dies am {{nuisance_start_date}} und findet seitdem an
+{% if nuisance_workdays %}
+ Wochentagen,
+{% endif %}
+{% if nuisance_weekends %}
+ Wochenenden,
+{% endif %}
+{% if nuisance_workdays %}
+ Feiertagen
+{% endif %}
+{% if nuisance_regularly %}
+regelmäßig {% endif %} statt. Dieses Verhalten stellt eine erhebliche
+Lärmbelästigung der anderen Bewohner dar.
+</p>
+<p>
+Ich weise Sie hiermit auf die Regeln der Hausordnung Ihres Mietvertrages.
+Hiernach haben Sie sich verpflichtet, die Ruhezeiten zu respektieren. Die hier genannten Fakten beweisen,
+dass Sie vertragswidrig verhalten.
+</p>
+<p>
+Im Interesse der anderen Hausbewohner kann ich dieses Verhalten nicht länger dulden.
+Daher fordere ich Sie dazu auf, Interessen der Bewohner zu respektieren und sich anhand
+der Regeln aus der Hausordnung zu verhalten.
+Sollte sich trotz dieser Abmahnung in den {{improvement_due}} keine Besserung einstellen
+und sollten Sie den vertragswidrigen Gebrauch der Mietsache nicht unterlassen,
+wird das Mietverhältnis mit Ihnen gemäß § 569 Abs. 2 BGB fristlos gekündigt.
+</p>

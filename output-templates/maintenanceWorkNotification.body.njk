@@ -1,0 +1,46 @@
+<p>
+Es wird beabsichtigt Modernisierungsmaßnahmen durchzuführen, die mit Einwirkungen auf die von Ihnen
+gemieteten Räume verbunden sind.
+</p>
+<p>
+Im Einzelnen handelt es sich um folgende Maßnahmen: {{maintenance_description}}
+</p>
+<p>
+Mit den Arbeiten wird voraussichtlich am {{maintanancestart}} begonnen.
+Die voraussichtliche Dauer der geplanten Maßnahmen beträgt {{macros.duration(maintanance_duration)}}.
+{% if planned_rentincrease %}
+</p>
+<p>
+Nach der Modernisierung werden wir eine Mieterhöhung geltend machen. Diese dürfte sich nach einer vorläufigen
+Berechnung voraussichtlich auf ca. {{rent_increase_delta | currency("EUR")}} monatlich belaufen. Den genauen Betrag teilen wir Ihnen noch
+gesondert mit.
+{% else %}
+Eine Mieterhöhung ist mit der Maßnahme für Sie nicht verbunden.
+{% endif %}
+{% if planned_op_expense_increase %}
+</p>
+<p>
+Die zukünftigen Betriebskosten werden voraussichtlich auf {{operatig_expense | currency("EUR")}} monatlich gesetzt.
+{% endif %}
+{% if energy_improvement %}
+</p>
+<p>
+Die geplanten Modernisierungsmaßnahmen führen wie folgt zu einer Energieeinsparung:{{energy_improvement_description}}.
+{% endif %}
+</p>
+<p>
+Sie sind verpflichtet, diese Maßnahme zu dulden. Falls die Maßnahme
+{% if planned_rentincrease %}
+oder die Mieterhöhung
+{% endif %} für Sie selbst, Ihre Familie oder einen Haushaltsangehörigen eine Härte bedeuten würde,
+die unter Berücksichtigung unserer
+Interessen und derjenigen anderer Mieter im Haus sowie durch Belange der Energieeinsparung und des
+Klimaschutzes nicht gerechtfertigt werden kann, können Sie sich auf solche Härtegründe berufen.
+Diese müssen Sie uns bis zum Ablauf des Monats, der auf den Zugang dieser Ankündigung folgt,
+in Textform mitteilen (§§ 555c II, 555d II, III BGB).
+</p>
+<p>
+Wir werden bemüht sein, die Störungen, die mit der Durchführung der Maßnahmen verbunden sind,
+so gering wie möglich zu halten. Die genauen Termine werden Ihnen, sobald sie bekannt sind,
+mitgeteilt werden.
+</p>

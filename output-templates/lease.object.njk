@@ -1,0 +1,21 @@
+<h1>
+  {% if is_furnished==true -%}
+    {% if mode=="student" -%}
+      Contrat de location de logement meublé étudiant
+    {% else %}
+      Contrat de location de logement meublé
+    {% endif %}
+  {% else %}
+    {% if mode=="student" -%}
+      Contrat de location de logement vide étudiant
+    {% else %}
+      Contrat de location de logement vide
+    {% endif %}
+  {% endif %}
+</h1>
+
+<p>
+  Soumis au titre Ier de la loi du 6 juillet 1989 tendant à améliorer les
+  rapports locatifs et portant modification de la loi n° 86-1290 du 23
+  décembre 1986.
+</p>

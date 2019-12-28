@@ -1,0 +1,24 @@
+<p>
+Leider
+{% if lessors.length == 1 %}
+  habe ich
+{% else %}
+  haben wir
+{% endif %} feststellen müssen, dass Sie die o. g. Wohnung an eine nicht am Mietvertrag beteiligte Person
+untervermietet haben,
+{% if permission_rejected %}
+obwohl Ihnen die Erteilung der Erlaubnis zur Untermietung versagt wurde.
+{% else %}
+ohne dafür die Erlaubnis eingeholt zu haben.
+{% endif %}
+<br/><br/>
+Durch die ungenehmigte Untervermietung verletzen Sie Ihre mietvertraglichen Pflichten.
+{% if lessors.length == 1 %}
+  Ich fordere
+{% else %}
+  Wir fordern
+{% endif %} Sie auf, das Untermietverhältnis unverzüglich zu beenden und den Auszug des Untermieters
+zu veranlassen. Hierfür wird Ihnen Zeit bis zum {{moveout_due}} gegeben.
+<br/><br/>
+Sollten Sie dieser Aufforderung nicht nachkommen, müssen Sie mit einer fristlosen Kündigung rechnen.
+ </p>

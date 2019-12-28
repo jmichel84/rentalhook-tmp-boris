@@ -1,0 +1,13 @@
+<h1>
+  {% if inventory_type=='entrance' -%}
+    Übergabeprotokoll beim Einzug
+  {% else %}
+    Übergabeprotokoll beim Auszzug
+  {% endif %}
+</h1>
+
+<p>Für das Mietobjekt</p>
+
+{% if inventory_type=='exit' -%}
+  <p>Übergabe beim Einzug protokolliert am {{entrance_inventory_at | date("LL")}}.</p>
+{% endif %}

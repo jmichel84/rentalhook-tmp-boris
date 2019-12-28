@@ -1,0 +1,34 @@
+<template>
+  <section>
+    <p>
+      <input-title collapsed>Betroffene Periode
+        <span slot="hint">Listen Sie die Monate mit dem offenen Mietrückstand auf</span>
+      </input-title>
+      <textarea style="width:100%" rows="3" cols="30" value.bind="doc.unpaid_period"></textarea>
+    </p>
+    <p>
+      <input-title>Gesamtmonatsmiete
+      </input-title>
+      <input type="number" style="width: 5em;" min="1" max="9999" step="1" value.bind="doc.rent | number" unit="€" required>
+    </p>
+    <p>
+      <input-title collapsed>Offener Betrag
+        <span slot="hint">Welcher Betrag ist aktuell noch offen</span>
+      </input-title>
+      <input type="number" style="width: 5em;" min="1" max="9999" step="1" value.bind="doc.rent_due | number" unit="€" required>
+    </p>
+    <p>
+      <input-title collapsed>Geleistete Zahlung
+        <span slot="hint">Tragen Sie die aktuell bezahlte Miete für die oben genannte Periode ein</span>
+      </input-title>
+      <input type="number" style="width: 5em;" min="1" max="9999" step="1" value.bind="doc.partial_rent | number" unit="€">
+    </p>
+    <p>
+      <input-title collapsed>Zahlungsfrist
+        <span slot="hint">Tragen Sie das Datum der erwarteten Zahlung ein</span>
+      </input-title>
+      <input type="text" size="10" datepicker value.two-way="doc.payment_due_date | date" required><!--required doesnt work-->
+    </p>
+
+  </section>
+</template>

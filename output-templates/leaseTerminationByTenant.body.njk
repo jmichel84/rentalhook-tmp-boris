@@ -1,0 +1,33 @@
+<p>
+Hiermit
+{% if tenants.length == 1 -%}
+   kündige ich
+{% else %}
+   kündigen wir
+{% endif %} den Mietvertrag für das oben genannte Mietobjekt
+{% if term_reason == 'normal' -%}
+unter Einhaltung der vertraglich vereinbarten/ gesetzlichen Kündigungsfrist
+{% elif term_reason == 'immediately' %}
+fristlos
+{% elif term_reason == 'specialcalse' %}
+im Rahmen einer Sonderkündigungen
+{% endif %} zum {{termination_date | date("LL")}}.
+</br>
+{% if term_reason != 'normal' -%}
+</br>
+Begründung:
+</br>
+{{termination_description}}
+{% endif %}
+</p>
+<p>
+Im Fall einer erteilten Einzugsermächtigung zum Einzug des Mietbetrags wird diese ab Ende des
+Mietverhältnisses widerrufen.
+</p>
+<p>
+Ich/ Wir bitten Sie, {% if tenants.length == 1 -%}
+mir
+{% else %}
+uns {% endif %} zum Zeichen der Bestätigung Ihrer Zustimmung mit dem Inhalt dieser
+Kündigung die beigefügte Abschrift unterschrieben zurückzusenden.
+</p>

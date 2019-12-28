@@ -1,0 +1,26 @@
+<p>
+Hiermit werden Sie über die geplante
+{% if building_type == 'flat'%}
+Wohnungsbesichtigung
+{% else %}
+Hausbesichtigung
+{% endif %} am {{inspection_period}} informiert. Sie werden hiermit gebeten, das Betreten und Besichtigen der
+Mieträume zu gestatten. Dieser Anspruch des Vermieters stützt sich auf § 809 BGB und Ihren Mietvertrag,
+in dem Vermieter das Betreten der Mieträume gestattet werden muss, wenn der Vermieter einen Anspruch in
+Ansehung der Mietsache hat oder sich Gewissheit verschaffen will, ob ihm ein solcher Anspruch zusteht und die
+Besichtigung aus diesem Grunde von Interesse ist. Die Ausübung des Besichtigungsrechtes stützt sich in
+diesem Fall auf {{inspection_reson}}.
+</p>
+<p>
+Sollten Sie zu diesem Termin verhindert sein, so
+{% if lessors.length == 1 %}
+bitte ich
+{% else %}
+bitten wir
+{% endif %} um rechtzeitige Benachrichtigung unter Nennung eines Ersatztermins. Wird die Besichtigung
+{% if building_type == 'flat'%}
+der Wohnung
+{% else %}
+des Hauses
+{% endif %} verweigert, so wird die Klage ohne weitere Ankündigung erhoben.
+</p>

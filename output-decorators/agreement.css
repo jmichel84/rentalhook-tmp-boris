@@ -1,0 +1,113 @@
+body{
+  font-size: 10pt;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+}
+
+@media print {
+  body {
+    {% if __platform == 'linux' -%}
+      zoom: 0.68; /* Solve the font scaling problem on Heroku. Problem probably related to the server DPI */
+    {% endif %}
+  }
+}
+
+p {
+  margin: 1.5em 0 0 0;
+  line-height: 1.4em;
+}
+
+table,
+table th,
+table td {
+  border: 1px solid #888;
+  border-collapse: collapse;
+  font-size: inherit;
+  font-family: inherit;
+  page-break-inside: avoid;
+}
+
+table th,
+table td {
+  padding: .3em 1em;
+}
+
+table th {
+  font-weight: bold;
+}
+
+header {
+  margin: 0 auto 5em auto;
+  width: 70%;
+  text-align: center;
+}
+
+header > p{
+  font-style: italic;
+  margin-top: 1em;
+}
+
+h1{
+  font-size: 1.6em;
+  line-height: 1.6em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+h2, h3, h4, h5{
+  font-size: 1em;
+  margin-top: 2em;
+}
+
+main {
+  counter-reset: h2counter
+}
+
+h2 {
+  counter-reset: h3counter;
+  text-decoration: underline;
+  text-transform: uppercase;
+}
+
+h3 {
+  counter-reset: h4counter;
+}
+
+h4 {
+  counter-reset: h5counter;
+}
+
+h5 {
+}
+
+h2:before {
+  counter-increment: h2counter;
+  content: counter(h2counter, upper-roman) ". ";
+  font-family:sans-serif;
+}
+
+h3:before {
+  counter-increment: h3counter;
+  content: counter(h3counter, upper-alpha) ". ";
+  font-family:sans-serif;
+}
+
+h4:before {
+  counter-increment: h4counter;
+  content: counter(h4counter) "° ";
+  font-family:sans-serif;
+}
+
+h5:before {
+  counter-increment: h4counter;
+  content: counter(h4counter, lower-alpha) ") ";
+  font-family:sans-serif;
+}
+
+.placeholder{
+  display: inline-block;
+  width: 20em;
+  height: .9cm;
+  border-bottom: 1px solid lightgrey;
+}

@@ -1,0 +1,113 @@
+<template>
+<section>
+  <p>
+  <label>
+    <input-title collapsed>
+      Datum der geplanten Modernisierungsmaßnahmen
+      <span slot="hint">Bei der erheblichen Einwirkung in die Mietsache sind Sie als Vermieter verpflichtet
+          den Mieter in schriftlich zu informieren. Dazu müssen Sie die Modernisierungsmaßnahme spätestens
+          3 Monate vor dem Beginn ankündigen (§ 555c I BGB: Modernisierungsankündigung).
+      </span>
+    </input-title>
+    <input required type="text" size="10" datepicker value.two-way="doc.maintanancestart | date">
+    <warning if.bind="doc.maintanancestart < doc.terminable_at">Die Modernisierungsmaßnahme müssen spätestens 3 Monate vor dem Beginn angekündigt werden (frühestens ${terminable_at | dateText} bezogen auf das heutige Datum)</warning>
+  </label>
+  </p>
+  <p>
+  <label>
+    <input-title collapsed>
+      Voraussichtliche Dauer der Maßnahme
+      <span slot="hint">Der Mieter soll wissen, wie lange die Arbeiten voraussichtlich dauern werden.
+        Dazu muss sich der Vermieter mit dem Handwerker oder dem Bauunternehmer absprechen und den
+        Arbeitsbeginn und die Dauer der Maßnahme möglichst vertraglich vereinbaren.
+      </span>
+    </input-title>
+    <duration duration.two-way="doc.maintanance_duration" min-duration.bind="{ years: 0, months: 0, days: 0 }"></duration>
+  </label>
+  </p>
+  <p>
+    <label>
+      <input-title collapsed>
+        Art und voraussichtlicher Umfang der Maßnahme
+        <span slot="hint">Die Angaben müssen so konkret sein, dass sich der Mieter ausreichend genaue Vorstellungen von der Situation während und nach der Durchführung der Maßnahme machen kann.
+          Dazu müssen die Arbeiten detailliert beschrieben und nicht umschrieben werden.</span>
+      </input-title>
+      <textarea required style="width:100%" rows="3" cols="30" value.bind="doc.maintenance_description"></textarea>
+    </label>
+  </p>
+</section>
+<section>
+  <p>
+    <input-title collapsed>Ist die Mieterhöhung nach dem Abschluss der Maßnahmen vorgsehen?
+      <span slot="hint">
+        Bereits jetzt sollen Sie über die Größenordnung der zu erwartenden Mieterhöhung informieren.
+        Die Mitteilungspflicht bezieht sich nur auf die zu erwartende Mieterhöhung wegen der Modernisierung,
+        nicht auf eine eventuelle Erhöhung auf die ortsübliche Vergleichsmiete nach § 558 BGB.
+        Sie müssen die zu erwartende Mieterhöhung mit einem bestimmten Geldbetrag bezeichnen.
+      </span>
+    </input-title>
+    <choice>
+      <choice-option required name="nc-maintanance-rentincrese" selected.two-way="doc.planned_rentincrease"
+        key.bind="true" label="Ja"></choice-option>
+      <choice-option required name="nc-maintanance-rentincrese" selected.two-way="doc.planned_rentincrease"
+        key.bind="false" label="Nein"></choice-option>
+    </choice>
+  </p>
+  <p if.bind="doc.planned_rentincrease">
+    <label>
+      <input-title>Betrag der voraussichtlich zu erwartenden Mieterhöhung</input-title>
+      <input type="number" style="width: 9em;" min="1" max="999999" step="1" value.bind="doc.rent_increase_delta | number" required unit="€">
+    </label>
+  </p>
+</section>
+<section>
+  <p>
+    <input-title collapsed>Erhöhen sich durch die Modernisierungsmaßnahmen die Nebenkosten oder werden neue Nebenkosten gefordert?
+      <span slot="hint">
+        Den genauen Erhöhungsbetrag brauchen Sie nicht zu beziffern.
+        Soweit der Mieter mit den Energielieferanten eigene Verträge abgeschlossen hat,
+        müssen Sie über eine mögliche Veränderung der Kosten für Strom und Gas nicht informieren.
+        Nach § 556a BGB können Sie den Abrechnungsmaßstab für Nebenkosten ändern.
+      </span>
+    </input-title>
+    <choice>
+      <choice-option required name="nc-maintanance-operatigexpense-increse" selected.two-way="doc.planned_op_expense_increase"
+        key.bind="true" label="Ja"></choice-option>
+      <choice-option required name="nc-maintanance-operatigexpense-increse" selected.two-way="doc.planned_op_expense_increase"
+        key.bind="false" label="Nein"></choice-option>
+    </choice>
+  </p>
+  <p if.bind="doc.planned_op_expense_increase">
+    <label>
+      <input-title>Die voraussichtlichen künftigen Betriebskosten</input-title>
+      <input type="number" style="width: 9em;" min="1" max="999999" step="1" value.bind="doc.operatig_expense | number" required unit="€">
+    </label>
+  </p>
+</section>
+<section>
+  <p>
+    <input-title collapsed>Gilt die geplante Maßnahme als eine energetische Sanierung?
+      <span slot="hint">
+        Im Fall der energetischen Sanierung müssen Sie darlegen, inwieweit die Maßnahme
+        zu einer Energieeinsparung geführt. Dazu können Siehinsichtlich der energetischen
+        Qualität von Bauteilen auf allgemein anerkannte Pauschalwerte Bezug nehmen.
+        (Beispiel: "Naturgemäß wird diese Modernisierungsmaßnahme zu einer nachhaltigen
+        Energieeinsparung in Ihrer Wohnung führen. Ausgehend von den Wärmeenergiekoeffizienten
+        lässt sich eine Heizenergieeinsparung von ca. 50 % begründen")
+      </span>
+    </input-title>
+    <choice>
+      <choice-option required name="nc-maintanance-energy-improvement" selected.two-way="doc.energy_improvement"
+        key.bind="true" label="Ja"></choice-option>
+      <choice-option required name="nc-maintanance-energy-improvement" selected.two-way="doc.energy_improvement"
+        key.bind="false" label="Nein"></choice-option>
+    </choice>
+  </p>
+  <p if.bind="doc.energy_improvement">
+    <label>
+      <input-title>Beschreiben Sie, inwieweit die Maßnahme zu einer Energieeinsparung führt.</input-title>
+      <textarea required style="width:100%" rows="3" cols="30" value.bind="doc.energy_improvement_description"></textarea>
+    </label>
+  </p>
+</section>
+</template>

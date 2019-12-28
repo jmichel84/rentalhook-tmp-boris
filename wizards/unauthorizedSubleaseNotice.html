@@ -1,0 +1,26 @@
+<template>
+<section>
+  <p>
+    <label>
+      <input-title collapsed>
+        Frist zum Auszug des Untermieters
+        <span slot="hint">Nennen Sie das Datum, an dem Sie den Auszug des unberechtigten Untermieters erwarten.
+        </span></input-title>
+        <input type="text" size="10" datepicker value.two-way="doc.moveout_due | date" required>
+    </label>
+  </p>
+<p>
+  <input-title>
+    Haben Sie bereits Ihre Erlaubnis zur Untermietung versagt?
+  </input-title>
+  <choice>
+    <choice-option required name="nc-permission-rejected" selected.two-way="doc.permission_rejected" key.bind="true" label="Ja">
+    </choice-option>
+    <choice-option required name="nc-permission-rejected" selected.two-way="doc.permission_rejected" key.bind="false" label="Nein">
+    </choice-option>
+</choice>
+</p>
+
+</section>
+
+</template>

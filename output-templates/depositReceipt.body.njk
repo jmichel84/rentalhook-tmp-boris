@@ -1,0 +1,13 @@
+<p>
+{% if lessors.length == 1 %}
+Ich bestätige
+{% else %}
+Wir bestätigen
+{% endif %} hiermit, dass die im Mietvertrag vereinbarte Kaution in Höhe von
+{{deposit | currency("EUR")}} am {{deposit_date | date("LL")}}
+{% if tenants.length > 1 %} <!--TODO: Plural wird hier nicht erkannt, checken-->
+vom Meieter bzw. der Mieterin {{tenants[0].first_name}} {{tenants[0].last_name}}
+{% else %}
+von den Mietern {{macros.namesInline(tenants)}}
+{% endif %} beazahlt wurde.
+</p>

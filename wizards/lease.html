@@ -1,0 +1,193 @@
+<template>
+<section effort.bind="7">
+  <input-title>Handelt es sich um einen befristeten Mietvertrag?</input-title>
+  <p>
+  <choice>
+    <choice-option required name="nc-fixed-term" selected.two-way="doc.fixedterm"
+      key="fixed" label="Befristet"></choice-option>
+    <choice-option required name="nc-fixed-term" selected.two-way="doc.fixedterm"
+      key="notfixed" label="Unbefristet"></choice-option>
+  </choice>
+  </p>
+  <p if.bind="doc.fixedterm=='fixed'">
+    <input-title collapsed>
+      Als Vermieter sind Sie verpflichtet, einen Befristungsgrund zu nennen. Wählen Sie eine der Option aus
+      <span slot="hint">
+        Nach Inkrafttreten des Mietrechtsänderungsgesetztes kann ein befristeter Mietvertrag auf bestimmte Zeit
+        im Mietrecht nur noch dann eingegangen werden, wenn der Vermieter bestimmte Befristungsgründe hat.
+      </span>
+    </input-title>
+      <choice vertical>
+      <choice-option required name="nc-fixed-term-reson" selected.two-way="doc.fixedtermreason"
+        key="own_usage" label="Eigenbedarf nach Ablauf der Befristung"></choice-option>
+      <choice-option required name="nc-fixed-term-reson" selected.two-way="doc.fixedtermreason"
+        key="renovation" label="Wesentliche bauliche Insandsetzungen nach Ablauf der Mietzeit"></choice-option>
+        <choice-option required name="nc-fixed-term-reson" selected.two-way="doc.fixedtermreason"
+          key="duty" label="Vermietung an Dienstverpflichtete"></choice-option>
+    </choice>
+    </p>
+    <p if.bind="doc.fixedterm=='fixed'">
+    <label>
+      <input-title>Vertrag befristet zum</input-title>
+      <input type="text" size="10" datepicker value.two-way="doc.fixedtermdate | date" required>
+      <error if.bind="doc.fixedtermdate<doc.effective_at">Die Befristung des Vertrages ist erst nach dem Inkraftreten möglich</error>
+    </label>
+  </p>
+</section>
+<section>
+  <p>
+  <input-title>Ist die reguläre Mietsteigerung vertraglich vorgesehen?</input-title>
+  <choice>
+    <choice-option required name="nc-regular-rent-increase" selected.two-way="doc.rentincrease"
+      key="increase_no" label="Nein"></choice-option>
+  <choice-option required name="nc-regular-rent-increase" selected.two-way="doc.rentincrease"
+    key="increase_yes" label="Ja"></choice-option>
+</choice>
+</p>
+<p if.bind="doc.rentincrease=='increase_yes'">
+  <input-title>Art der Mietanpassung</input-title>
+  <choice>
+  <choice-option required name="nc-rent-increase-type" selected.two-way="doc.rentincreasetype"
+    key="graduated_rent" label="Staffelmiete"></choice-option>
+  <choice-option required name="nc-rent-increase-type" selected.two-way="doc.rentincreasetype"
+    key="index_rent" label="Index"></choice-option>
+</choice>
+</p>
+<p if.bind="doc.rentincreasetype=='graduated_rent'" &&  if.bind="doc.rentincrease =='increase_yes'">
+  <!--TODO: BK, Double check with Jerome, why the value is not hidden if you toggle the answers
+several times-->
+  <input-title>Tragen Sie  mindestens eine Mietstaffelung ein</input-title>
+  <input-title>1. Wirksam ab </input-title>
+  <input type="text" size="10" datepicker  value.two-way="doc.effective_graduatedrent1 | date" required>
+  <!--Datum scheint nicht auf "required" geprüft zu werden, falls Betrag ist gesetzt-->
+  <input type="number" style="width: 5em;" min="1" max="9999" step="1" value.bind="doc.graduatedrent1 | number" unit="€" required>
+  <input-title>2. Wirksam ab </input-title>
+  <input type="text" size="10" datepicker  value.two-way="doc.effective_graduatedrent2 | date" required>
+  <input type="number" style="width: 5em;" min="1" max="9999" step="1" value.bind="doc.graduatedrent2 | number" unit="€">
+  <error if.bind="doc.effective_graduatedrent2<doc.effective_graduatedrent1">Bitte die Reihenfolge der Staffelungen korrigieren.</error>
+  <!--error if.bind="doc.effective_graduatedrent2<doc.effective_at">Die erste Mieterhöhung darf erst nach mindestens 12 Monaten nach dem Beginn des Mietverhältnisses erfolgen</error-->
+
+  <input-title>3. Wirksam ab </input-title>
+  <input type="text" size="10" datepicker  value.two-way="doc.effective_graduatedrent3 | date" required>
+  <input type="number" style="width: 5em;" min="1" max="9999" step="1" value.bind="doc.graduatedrent3 | number" unit="€">
+  <error if.bind="doc.effective_graduatedrent3<doc.effective_graduatedrent2 || doc.effective_graduatedrent3<doc.effective_graduatedrent2 ">Bitte die Reihenfolge der Staffelungen korrigieren.</error>
+</p>
+</section>
+<section>
+  <p>
+    <label>
+    <input-title>Miete
+            <span slot="hint">Tragen Sie die Höhe der Nettokaltmiete ein</span>
+    </input-title>
+    <input type="number" style="width: 9em;" min="1" max="999999" step="0.01" value.bind="doc.net_cold_rent | number" required unit="€">
+  </label>
+  </p>
+  <p>
+  <label>
+    <input-title>
+      Warmwasser und Heizung
+      <span slot="hint">Tragen Sie die Höhe der Vorauszahlung ein</span>
+    </input-title>
+    <input type="number" style="width: 9em;" min="1" max="999999" step="1" value.bind="doc.water_heating | number" required unit="€">
+  </label>
+  </p>
+  <p>
+  <label>
+    <input-title>
+      Betriebskosten
+      <span slot="hint">Wie z.B. Wasserversorgung, Entwässerung, Müllabfuhr etc.</span>
+    </input-title>
+    <input type="number" style="width: 9em;" min="1" max="999999" step="1" value.bind="doc.operatig_expense | number" required unit="€">
+  </label>
+  </p>
+</section>
+<section>
+<p>
+  <input-title>Mietsicherheit</input-title>
+  <choice>
+  <choice-option required name="nc-rent-deposit" selected.two-way="doc.rentdeposit"
+    key="money_deposit" label="Kaution"></choice-option>
+  <choice-option required name="nc-rent-deposit" selected.two-way="doc.rentdeposit"
+    key="rental_guarantee" label="Mietbürgschaft"></choice-option>
+</choice>
+</p>
+<p if.bind="doc.rentdeposit=='money_deposit'">
+  <label>
+    <input-title>
+      Tragen Sie den Kautionsbetrag ein
+    </input-title>
+    <input type="number" style="width: 9em;" min="1" max="999999" step="1" value.bind="doc.rent_deposit_amount | number" required unit="€">
+    <warning if.bind="doc.rent_deposit_amount>(3*doc.net_cold_rent)">Maximal 3 Monatsmieten sind gesetzlich zulässig.</warning>
+  </label>
+</p>
+<p if.bind="doc.rentdeposit=='rental_guarantee'">
+  <label>
+    <input-title>Vor- und Nachname des Bürgen</input-title>
+      <full-name first-name.two-way="doc.guarantor.first_name"
+      last-name.two-way="doc.guarantor.last_name" required>
+    </full-name>
+  </label>
+</p>
+<p if.bind="doc.rentdeposit=='rental_guarantee'">
+  <label> <input-title>Adresse des Bürgen</input-title>
+    <address-autocomplete address.two-way="doc.guarantor.address" required match-locale-country>
+    </address-autocomplete>
+  </label>
+</p>
+</section>
+<section>
+  <p>
+  <input-title collapsed>
+    Gehört eine Garage/ein Stellplatz zur Mietwohnung?
+    <span slot="hint">Einstellplatz kann als Bestandteil dieses Vertrages vermietet werden. Alternativ kann ein separater Vertrag abgeshclossen werden, um mögliche
+      Kündigung oder eine Mieterhöhung gesondert durchzuführen.</span>
+  </input-title>
+  <choice>
+    <choice-option required name="parking-space-available" selected.two-way="doc.parking_available" key.bind="true" label="Ja">
+    </choice-option>
+    <choice-option required name="parking-space-available" selected.two-way="doc.parking_available" key.bind="false" label="Nein">
+    </choice-option>
+  </choice>
+  </p>
+  <p if.bind="doc.parking_available">
+    <input-title collapsed>
+      Typ des Einstellplatzes
+    </input-title>
+    <choice>
+      <choice-option required name="parkingType" selected.two-way="doc.parking_type" key.bind="undergroundParkingSpace" label="Tiefgaragenstellplatz">
+        <!--Warum ist diese Option "preselected"?-->
+      </choice-option>
+      <choice-option required name="parkingSpaceAvailable" selected.two-way="doc.parking_type" key.bind="garage" label="Garage">
+        </choice-option>
+      <choice-option required name="parkingSpaceAvailable" selected.two-way="doc.parking_type" key.bind="patkingSpace" label="Stellplatz">
+      </choice-option>
+      </choice>
+      </p>
+      <p if.bind="doc.parking_available">
+        <label>
+          <input-title>Einstellplatz-Miete</input-title>
+          <input type="number" style="width: 9em;" min="1" max="999999" step="1" value.bind="doc.parking_rent | number" required unit="€">
+        </label>
+      </p>
+      <p>
+        <label>
+          <input-title collapsed>
+            Sonstige Vereinbarungen
+            <span slot="hint">Tragen Sie (optional) individuell ausgehandelte Zusatzvereinbarungen wie z.B. Kleinreparaturen, Endrenovierungszusatz, Begrenzung zur Untermiete ein</span>
+          </input-title>
+          <textarea style="width:100%" rows="3" cols="30" value.bind="doc.additional_negiations"></textarea>
+        </label>
+      </p>
+      <p>
+        <label>
+          <input-title collapsed>
+            Mindestmietdauer (in Monaten)
+            <span slot="hint">Bei einer Mindestmietdauer verzichten Mieter und Vermieter auf das ordentliche Kündigungsrecht</span>
+          </input-title>
+          <input type="number" style="width: 4em;" min="0" max="48" step="1" value.bind="doc.min_rent_duration | number">
+          <error if.bind="doc.min_rent_duration>48 && doc.rentincreasetype=='graduated_rent'">Die Mindestmietdauer für einen Staffelmietvertrag ist auf maximal 48 Monate begrenzt</error>
+          <error if.bind="doc.min_rent_duration>60 && doc.rentincreasetype !='graduated_rent'">Ausschluss des Kündigungsrechts ist auf maximal 5 Jahre begrenzt</error>
+        </label>
+      </p>
+</section>
+</template>

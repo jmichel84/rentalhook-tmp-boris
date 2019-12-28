@@ -1,0 +1,306 @@
+<template>
+  <section>
+    <p>
+      <label>
+    <input-title>Datum der Übergabe</input-title>
+    <input type="text" size="10" datepicker value.two-way="doc.handover_date | date" required>
+    </label>
+  </p>
+  <p>
+  <input-title>Übergage beim</input-title>
+  <choice>
+    <choice-option required name="handover-moving-in-out" selected.two-way="doc.hanoverTiming"
+      key="moving_in" label="Einzug"></choice-option>
+  <choice-option required name="handover-moving-in-out" selected.two-way="doc.hanoverTiming"
+    key="moving_out" label="Auszug"></choice-option>
+</choice>
+</p>
+<p>
+<input-title>Bei der Besichtigung wurden Mängel festgestellt</input-title>
+<choice>
+  <choice-option required name="defects-protocoled" selected.two-way="doc.defectsProtocoled"
+    key="no_defects" label="Keine"></choice-option>
+<choice-option required name="defects-protocoled" selected.two-way="doc.defectsProtocoled"
+  key="following_defects" label="Folgende"></choice-option>
+</choice>
+</p>
+<p if.bind="doc.defectsProtocoled=='following_defects'">
+<input-title>Diele/Flur</input-title>
+<choice>
+  <choice-option required name="corridor-ok" selected.two-way="doc.corridorOk"
+    key="ok" label="In Ordnung"></choice-option>
+<choice-option required name="corridor-ok" selected.two-way="doc.corridorOk"
+  key="nok" label="Mängel"></choice-option>
+</choice>
+</p>
+<p if.bind="doc.defectsProtocoled=='following_defects' && doc.corridorOk=='nok'">
+  <label>
+    <input-title collapsed>
+      Anmerkungen zun den festgestellten Mängel im Flur
+    </input-title>
+    <textarea style="width:100%" rows="3" cols="30" value.bind="doc.corridorDefectsDetails"></textarea>
+  </label>
+</p>
+
+
+
+<p if.bind="doc.defectsProtocoled=='following_defects'">
+<input-title>Küche</input-title>
+<choice>
+  <choice-option required name="kitchen-ok" selected.two-way="doc.kitchenOK"
+    key="ok" label="In Ordnung"></choice-option>
+<choice-option required name="kitchen-ok" selected.two-way="doc.kitchenOK"
+  key="nok" label="Mängel"></choice-option>
+</choice>
+</p>
+<p if.bind="doc.defectsProtocoled=='following_defects' && doc.kitchenOK=='nok'">
+  <label>
+    <input-title collapsed>
+      Anmerkungen zun den festgestellten Mängel in der Küche
+    </input-title>
+    <textarea style="width:100%" rows="3" cols="30" value.bind="doc.kitchenDefDetails"></textarea>
+  </label>
+</p>
+
+<p if.bind="doc.defectsProtocoled=='following_defects'">
+<input-title>Bad/WC</input-title>
+<choice>
+  <choice-option required name="wc-ok" selected.two-way="doc.wcOK"
+    key="ok" label="In Ordnung"></choice-option>
+<choice-option required name="wc-ok" selected.two-way="doc.wcOK"
+  key="nok" label="Mängel"></choice-option>
+</choice>
+</p>
+<p if.bind="doc.defectsProtocoled=='following_defects' && doc.wcOK=='nok'">
+  <label>
+    <input-title collapsed>
+      Anmerkungen zun den festgestellten Mängel im Bad oder WC
+    </input-title>
+    <textarea style="width:100%" rows="3" cols="30" value.bind="doc.wcDefDetails"></textarea>
+  </label>
+</p>
+
+
+<p if.bind="doc.defectsProtocoled=='following_defects'">
+<input-title>Wohnzimmer</input-title>
+<choice>
+  <choice-option required name="liv-room-ok" selected.two-way="doc.livRoomOK"
+    key="ok" label="In Ordnung"></choice-option>
+<choice-option required name="liv-room-ok" selected.two-way="doc.livRoomOK"
+  key="nok" label="Mängel"></choice-option>
+</choice>
+</p>
+<p if.bind="doc.defectsProtocoled=='following_defects' && doc.livRoomOK=='nok'">
+  <label>
+    <input-title collapsed>
+      Anmerkungen zun den festgestellten Mängel im Bad oder WC
+    </input-title>
+    <textarea style="width:100%" rows="3" cols="30" value.bind="doc.livRoomDefDetails"></textarea>
+  </label>
+</p>
+
+
+<p if.bind="doc.defectsProtocoled=='following_defects'">
+<input-title>Schlafzimmer</input-title>
+<choice>
+  <choice-option required name="bed-room-ok" selected.two-way="doc.bedRoomOK"
+    key="ok" label="In Ordnung"></choice-option>
+<choice-option required name="bed-room-ok" selected.two-way="doc.bedRoomOK"
+  key="nok" label="Mängel"></choice-option>
+</choice>
+</p>
+<p if.bind="doc.defectsProtocoled=='following_defects' && doc.bedRoomOK=='nok'">
+  <label>
+    <input-title collapsed>
+      Anmerkungen zun den festgestellten Mängel im Schlafzimmer
+    </input-title>
+    <textarea style="width:100%" rows="3" cols="30" value.bind="doc.bedRoomDefDetails"></textarea>
+  </label>
+</p>
+
+
+<p if.bind="doc.defectsProtocoled=='following_defects'">
+<input-title>Kinderzimmer</input-title>
+<choice>
+  <choice-option required name="nursey-room-ok" selected.two-way="doc.nurseyRoomOK"
+    key="ok" label="In Ordnung"></choice-option>
+<choice-option required name="nursey-room-ok" selected.two-way="doc.nurseyRoomOK"
+  key="nok" label="Mängel"></choice-option>
+</choice>
+</p>
+<p if.bind="doc.defectsProtocoled=='following_defects' && doc.nurseyRoomOK=='nok'">
+  <label>
+    <input-title collapsed>
+      Anmerkungen zun den festgestellten Mängel im Schlafzimmer
+    </input-title>
+    <textarea style="width:100%" rows="3" cols="30" value.bind="doc.nurseyRoomDefDetails"></textarea>
+  </label>
+</p>
+
+<p if.bind="doc.defectsProtocoled=='following_defects'">
+<input-title>Arbeitszimmer</input-title>
+<choice>
+  <choice-option required name="office-room-ok" selected.two-way="doc.officeRoomOK"
+    key="ok" label="In Ordnung"></choice-option>
+<choice-option required name="office-room-ok" selected.two-way="doc.officeRoomOK"
+  key="nok" label="Mängel"></choice-option>
+</choice>
+</p>
+<p if.bind="doc.defectsProtocoled=='following_defects' && doc.officeRoomOK=='nok'">
+  <label>
+    <input-title collapsed>
+      Anmerkungen zun den festgestellten Mängel im Arbeitszimmer
+    </input-title>
+    <textarea style="width:100%" rows="3" cols="30" value.bind="doc.officeRoomDefDetails"></textarea>
+  </label>
+</p>
+
+<p if.bind="doc.defectsProtocoled=='following_defects'">
+<input-title>Keller</input-title>
+<choice>
+  <choice-option required name="basement-room-ok" selected.two-way="doc.basementRoomOK"
+    key="ok" label="In Ordnung"></choice-option>
+<choice-option required name="basement-room-ok" selected.two-way="doc.basementRoomOK"
+  key="nok" label="Mängel"></choice-option>
+</choice>
+</p>
+<p if.bind="doc.defectsProtocoled=='following_defects' && doc.basementRoomOK=='nok'">
+  <label>
+    <input-title collapsed>
+      Anmerkungen zun den festgestellten Mängel im Keller
+    </input-title>
+    <textarea style="width:100%" rows="3" cols="30" value.bind="doc.officeRoomDefDetails"></textarea>
+  </label>
+</p>
+
+<p if.bind="doc.defectsProtocoled=='following_defects'">
+<input-title>Balkon</input-title>
+<choice>
+  <choice-option required name="balcony-ok" selected.two-way="doc.balconyOK"
+    key="ok" label="In Ordnung"></choice-option>
+<choice-option required name="balcony-ok" selected.two-way="doc.balconyOK"
+  key="nok" label="Mängel"></choice-option>
+</choice>
+</p>
+<p if.bind="doc.defectsProtocoled=='following_defects' && doc.basementRoomOK=='nok'">
+  <label>
+    <input-title collapsed>
+      Anmerkungen zun den festgestellten Mängel auf dem Balkon
+    </input-title>
+    <textarea style="width:100%" rows="3" cols="30" value.bind="doc.balconyDefDetails"></textarea>
+  </label>
+</p>
+
+<p if.bind="doc.defectsProtocoled=='following_defects' && doc.parking_available">
+<input-title>Garage/Einstellplaz</input-title>
+<choice>
+  <choice-option required name="garage-ok" selected.two-way="doc.garageOK"
+    key="ok" label="In Ordnung"></choice-option>
+<choice-option required name="garage-ok" selected.two-way="doc.garageOK"
+  key="nok" label="Mängel"></choice-option>
+</choice>
+</p>
+<p if.bind="doc.defectsProtocoled=='following_defects' && doc.basementRoomOK=='nok' && doc.parking_available">
+  <label>
+    <input-title collapsed>
+      Anmerkungen zun den festgestellten Mängel auf dem Stellplatz (in der Garage)
+    </input-title>
+    <textarea style="width:100%" rows="3" cols="30" value.bind="doc.garageDefDetails"></textarea>
+  </label>
+  <!--Double check if the garage is retrived from the Mietvertrag-->
+</p>
+  </section>
+
+<section>
+<p>
+  <label>
+    <input-title>Strom
+    <span slot="hint">Zählernummer und Zählerstand</span>
+    </input-title>
+    <input id="electricmeter_name" type="text" value.bind="doc.electricmeter_id" required>
+    <input type="number" style="width: 9em;" min="0.1" max="999999" step="0.1" value.bind="doc.electricmeter_status | number" required unit="kWh">
+  </label>
+</p>
+
+<p>
+  <label>
+    <input-title>Wasser
+    <span slot="hint">Zählernummer und Zählerstand</span>
+    </input-title>
+    <input id="electricmeter_name" type="text" value.bind="doc.watermeter_id" required>
+    <input type="number" style="width: 9em;" min="0.1" max="999999" step="0.1" value.bind="doc.watermeter_status | number" required unit="kWh">
+  </label>
+</p>
+
+<p>
+  <label>
+    <input-title>Gas
+    <span slot="hint">Zählernummer und Zählerstand</span>
+    </input-title>
+    <input id="electricmeter_name" type="text" value.bind="doc.gasmeter_id" required>
+    <input type="number" style="width: 9em;" min="0.1" max="999999" step="0.1" value.bind="doc.gasmeter_status | number" required unit="kWh">
+  </label>
+</p>
+
+<p>
+  <label>
+    <input-title>Heizung
+    <span slot="hint">Zählernummer und Zählerstand</span>
+    </input-title>
+    <input id="heatingmeter_name" type="text" value.bind="doc.heatingmeter_id" required>
+    <input type="number" style="width: 9em;" min="0.1" max="999999" step="0.1" value.bind="doc.heatingmeter_status | number" required unit="kWh">
+    <!--Wie wäre es mit dynmamischen Listen?-->
+  </label>
+</p>
+</section>
+
+
+<section>
+  <p>
+  <label>
+    <input-title>Wieviele Schlüssel wurden übergeben?</input-title>
+    <input id="key_amount" type="number" style="width: 9em;" min="1" max="99"value.bind="doc.keyAmount">
+    </label>
+  </p>
+  <p>
+  <label>
+    <input-title>Wieviele Schlüssel fehlen noch?</input-title>
+    <input id="missing_key_amount" type="number" style="width: 9em;" min="1" max="99" step="1" value.bind="doc.missingKeyAmount">
+    </label>
+  </p>
+  <p>
+  <label>
+    <input-title>Listen Sie sonstige Schlüssel (Keller, Briefkasten etc.) auf?</input-title>
+    <textarea style="width:100%" rows="3" cols="30" value.bind="doc.additionalKeys"></textarea>
+    </label>
+  </p>
+  <p>
+  <label>
+    <input-title>Letzte Renovierung</input-title>
+    <input type="text" size="10" datepicker value.two-way="doc.lastRenovationDate | date">
+    </label>
+  </p>
+  <p if.bind="doc.lastRenovationDate!=null">
+  <label>
+    <input-title>Details zur Renovierung</input-title>
+    <textarea style="width:100%" rows="3" cols="30" value.bind="doc.last_renovation_details"></textarea>
+    </label>
+  </p>
+</section>
+<section>
+  <p>
+    <label>
+      <input-title>Vor- und Nachname des Zeugen</input-title>
+        <full-name first-name.two-way="doc.handoverWitness.first_name"
+        last-name.two-way="doc.handoverWitness.last_name" required>
+      </full-name>
+    </label>
+  </p>
+</section>
+
+
+
+
+
+
+</template>

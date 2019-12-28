@@ -1,0 +1,367 @@
+{% set enteringTenants = tenants | selectattrval('change', 'entering') %}
+{% set remainingTenants = tenants | selectattrval('change', 'remaining') %}
+{% set leavingTenants = tenants | selectattrval('change', 'leaving') %}
+{% set currentTenants = remainingTenants.concat(leavingTenants) %}
+
+<h2>Mietparteien</h2>
+
+<p>Vertrag zwischen :</p>
+
+<h3>
+    Vermieter
+</h3>
+<p>
+  {{ macros.contactDetails(lessors) }}
+  <br/>
+im Folgenden als "Vermieter" bezeichnet
+</p>
+
+
+{% if enteringTenants.length >= 1 %}
+  <h3>
+    {% if enteringTenants.length == 1 -%}
+      Der neue Mieter
+    {% else %}
+      Die neuen Mieter
+    {% endif %}
+  </h3>
+  {{ macros.contactDetails(enteringTenants) }}
+  {% if enteringTenants.length == 1 %}
+     <p>im Folgenden als "NEUER MIETER" bezeichnet,</p>
+  {% else %}
+    <p>im Folgenden als "NEUE MIETER" bezeichnet,</p>
+  {% endif %}
+{% endif %}
+
+<h3>
+  {% if currentTenants.length == 1 -%}
+  In Anwesenheit des aktuellen Mieters
+  {% else %}
+  In Anwesenheit der aktuellen Mieter
+  {% endif %}
+</h3>
+<p>
+  {{ macros.contactDetails(currentTenants) }}<br/><br/>
+  {% if currentTenants.length == 1 -%}
+    im Folgenden als "AKTUELLER MIETER" bezeichnet,
+  {% else %}
+   im Folgenden als "AKTUELLE MIETER" bezeichnet,
+  {% endif %}
+</p>
+
+<p>Es wird vorher auf Folgendes hingewiesen :</p>
+
+<h2>Erstmietvertrag</h2>
+
+<p>
+  Der Mietrvertrag wurde zwischen
+  {% if lessors.length == 1 %}
+     dem VERMIETER
+  {% else %}
+     den VERMIETERN
+  {% endif %}
+  und
+  {% if tenants.length == 1 %}
+     dem MIETER.
+  {% else %}
+     len AKTUELLEN MIETERN.
+  {% endif %}
+Dieser Mietvertrag bezieht sich auf die Vermietung von Unterkünften an der folgenden Adresse:
+  {% if location %}
+    {{address.formatted_address}} ({{location}}).
+  {% else %}
+    {{address.formatted_address}}.
+  {% endif %}
+</p>
+
+<p>Die Unterkunft ist im oben genannten Mietvertrag beschrieben, welcher Dokument beigefügt ist.</p>
+
+<p>
+ {% if leavingTenants.length >= 1 %}
+
+   <!-- LEAVING TENANT(S) -->
+   {% if leavingTenants.length == 1 %}
+     {{ macros.namesInline(leavingTenants) }}, nachstehend als "VERLASSENDER MIETER" bezeichnet, beabsichtigt
+     die Unterkunft zu verlassen und frei zu übergeben.
+   {% else %}
+     {{ macros.namesInline(leavingTenants) }}, nachstehend als "VERLASSENDE MIETER" bezeichnet, beabsichtigt
+     die Unterkunft zu verlassen und frei zu übergeben.
+   {% endif %}
+
+   <!-- REMPACING TENANT(S) -->
+   {% if enteringTenants.length >= 1 %}
+
+     {% if enteringTenants.length == 1 %}
+     Daraufhin hat der NEUE MIETER seinen wunsch geäußert
+     {% else %}
+     Daraufhin heben die NEUEN MIETER ihren wunsch geäußert
+     {% endif %}
+    als Mieter der oben genannten Unterkunft einzuziehen.
+   {% endif %}
+
+ {% else %} <!-- NO LEAVING TENANTS -->
+
+   {% if enteringTenants.length >= 1 %}
+     {% if enteringTenants.length == 1 %}
+       Le NOUVEAU LOCATAIRE, avec l’accord
+     {% else %}
+       Les NOUVEAUX LOCATAIRES, avec l’accord
+     {% endif %}
+     {% if tenants.length == 1 %}
+        du LOCATAIRE ACTUEL
+     {% else %}
+        des LOCATAIRES ACTUELS
+     {% endif %}
+     {% if enteringTenants.length == 1 %}
+       a signifié sa volonté d’intégrer la location en tant que locataire,
+     {% else %}
+       ont signifié leur volonté d’intégrer la location en tant que locataires,
+     {% endif %}
+     dans le logement susvisé.
+   {% endif %}
+
+ {% endif %}
+</p>
+
+<p>Il est ainsi rédigé le présent avenant afin de prendre en compte ce changement de parties au bail
+initial. Le bail initial reste inchangé dans ses autres clauses, notamment en ce qui concerne les
+obligations incombant à chacune des parties.</p>
+
+<p>Ceci étant rappelé, les parties ont convenu et arrêté ce qui suit :</p>
+
+<h2>Objet de l’avenant</h2>
+<p>
+ Le présent avenant modifie le bail initial susvisé.
+
+ {% if leavingTenants.length >= 1 %}
+
+   {% if enteringTenants.length >= 1 %}
+
+     <!-- LEAVING AND ENTERING -->
+     Les locataires sont ainsi changés avec le remplacement
+     {% if leavingTenants.length == 1 %}
+       du LOCATAIRE PARTANT qui se retrouve dégagé(e)
+     {% else %}
+       des LOCATAIRES PARTANTS qui se retrouvent dégagés
+     {% endif %}
+     de toutes responsabilités vis-à-vis dudit logement, par
+     {% if enteringTenants.length == 1 %}
+       le NOUVEAU LOCATAIRE qui devient donc partie prenante au bail initial et
+       qui en accepte pleinement les termes.
+     {% else %}
+       les NOUVEAUX LOCATAIRES qui deviennent donc partie prenante au bail initial
+       et en qui acceptent pleinement les termes.
+     {% endif %}
+
+     L’ensemble des parties accepte, et
+     {% if lessors.length == 1 %}
+       le BAILLEUR autorise,
+     {% else %}
+       les BAILLEURS autorisent,
+     {% endif %}
+     le remplacement
+     {% if leavingTenants.length == 1 %}
+       du LOCATAIRE PARTANT
+     {% else %}
+       des LOCATAIRES PARTANTS
+     {% endif %}
+     {% if enteringTenants.length == 1 %}
+       par le NOUVEAU LOCATAIRE.
+     {% else %}
+       par les NOUVEAUX LOCATAIRES.
+     {% endif %}
+
+   {% else %}
+
+     <!-- ONLY LEAVING -->
+     Les locataires sont ainsi changés avec la sortie
+     {% if leavingTenants.length == 1 %}
+       du LOCATAIRE PARTANT qui se retrouve dégagé(e)
+     {% else %}
+       des LOCATAIRES PARTANTS qui se retrouvent dégagés
+     {% endif %}
+     de toutes responsabilités vis-à-vis dudit logement.
+
+     L’ensemble des parties accepte, et
+     {% if lessors.length == 1 %}
+       le BAILLEUR autorise,
+     {% else %}
+       les BAILLEURS autorisent,
+     {% endif %}
+     le départ
+     {% if leavingTenants.length == 1 %}
+       du LOCATAIRE PARTANT
+     {% else %}
+       des LOCATAIRES PARTANTS
+     {% endif %}
+
+   {% endif %}
+
+ {% else %}
+
+   <!-- ONLY ENTERING -->
+   {% if enteringTenants.length == 1 %}
+     A ce bail, est ainsi ajouté le NOUVEAU LOCATAIRE en tant que locataire du logement concerné.
+     Le NOUVEAU LOCATAIRE devient donc partie prenante au bail initial et en accepte pleinement les termes.
+   {% else %}
+     A ce bail, sont ainsi ajoutés les NOUVEAUX LOCATAIRES en tant que locataires du logement concerné.
+     Les NOUVEAUX LOCATAIRES deviennent donc partie prenante au bail initial et en acceptent pleinement les termes.
+   {% endif %}
+
+   L’ensemble des parties accepte, et
+   {% if lessors.length == 1 %}
+     le BAILLEUR autorise,
+   {% else %}
+     les BAILLEURS autorisent,
+   {% endif %}
+   l’entrée
+   {% if enteringTenants.length == 1 %}
+     du NOUVEAU LOCATAIRE.
+   {% else %}
+     des NOUVEAUX LOCATAIRES.
+   {% endif %}
+
+ {% endif %}
+</p>
+
+<h2>Date d’effet et durée du bail</h2>
+<p>Le présent avenant prend effet à partir du {{effective_at | date("LL")}}. Les modalités concernant la durée
+ sont décrites dans le bail initial.</p>
+
+<h2>Clause de solidarité</h2>
+<p>
+ {% if leavingTenants.length >= 1 %}
+
+   {% if enteringTenants.length >= 1 %}
+
+     <!-- LEAVING AND ENTERING -->
+     {% if leavingTenants.length == 1 %}
+       Le LOCATAIRE PARTANT ne sera plus partie au contrat de bail et se retrouve dégagé
+     {% else %}
+       Les LOCATAIRES PARTANTS ne seront plus partie au contrat de bail et se retrouvent dégagés
+     {% endif %}
+     de toute responsabilité au titre de celui-ci, à compter du {{effective_at | date("LL")}}.
+     {% if leavingTenants.length == 1 %}
+       La solidarité du LOCATAIRE PARTANT et, le cas échéant, celle
+       de la personne qui s’est portée caution pour lui, prennent fin à cette même date.
+     {% else %}
+       La solidarité des LOCATAIRES PARTANTS et, le cas échéant, celles
+       des personnes qui se sont portées caution pour eux, prennent fin à cette même date.
+     {% endif %}
+
+     {% if leavingTenants.length == 1 %}
+       Le LOCATAIRE PARTANT est remplacé
+     {% else %}
+       Les LOCATAIRES PARTANTS sont remplacés
+     {% endif %}
+     {% if enteringTenants.length == 1 %}
+       par le NOUVEAU LOCATAIRE, qui s’engage à respecter les obligations et clauses prévues dans
+       le contrat de bail. La solidarité du NOUVEAU LOCATAIRE et, le cas échéant, celle de la
+       personne qui s’est portée caution pour lui, commence
+     {% else %}
+       par les NOUVEAUX LOCATAIRES, qui s’engagent à respecter les obligations et clauses prévues dans
+       le contrat de bail. La solidarité des NOUVEAUX LOCATAIRES et, le cas échéant, celles des
+       personnes qui se sont portées caution pour elles, commencent
+     {% endif %}
+     à compter du {{effective_at | date("LL")}}.
+
+     Les LOCATAIRES ACTUELS
+     {% if leavingTenants.length == 1 %}
+       qui ne sont pas le LOCATAIRE PARTANT
+     {% else %}
+       qui ne font pas partie des LOCATAIRES PARTANTS
+     {% endif %}
+     deviendront co-titulaires du contrat de bail avec
+     {% if enteringTenants.length == 1 %}
+       le NOUVEAU LOCATAIRE
+     {% else %}
+       les NOUVEAUX LOCATAIRES
+     {% endif %}
+     et seront obligés conjointement et solidairement.
+   {% else %}
+
+   <!-- ONLY LEAVING -->
+
+   {% if leavingTenants.length == 1 %}
+     Le LOCATAIRE PARTANT ne sera plus partie au contrat de bail et se retrouve dégagé
+   {% else %}
+     Les LOCATAIRES PARTANTS ne seront plus partie au contrat de bail et se retrouvent dégagés
+   {% endif %}
+   de toute responsabilité au titre de celui-ci, à compter du {{effective_at | date("LL")}}.
+   {% if leavingTenants.length == 1 %}
+     La solidarité du LOCATAIRE PARTANT et, le cas échéant, celle de la personne qui s’est
+     portée caution pour lui, prennent fin au plus tard six mois après la date d’effet du congé
+     ou en cas d’arrivée d’un nouveau locataire remplaçant.
+   {% else %}
+     La solidarité des LOCATAIRES PARTANTS et, le cas échéant, celles des personnes qui se sont
+     portées caution pour eux, prennent fin au plus tard six mois après la date d’effet du congé
+     ou en cas d’arrivée d’un nouveau locataire remplaçant.
+   {% endif %}
+
+   {% endif %}
+
+ {% else %}
+
+   <!-- ONLY ENTERING -->
+
+   {% if enteringTenants.length == 1 %}
+     Le NOUVEAU LOCATAIRE, qui s’engage à respecter les obligations et clauses prévues dans
+     le contrat de bail. La solidarité du NOUVEAU LOCATAIRE et, le cas échéant, celle de la
+     personne qui s’est portée caution pour lui, commence
+   {% else %}
+     Les NOUVEAUX LOCATAIRES, qui s’engagent à respecter les obligations et clauses prévues dans
+     le contrat de bail. La solidarité des NOUVEAUX LOCATAIRES et, le cas échéant, celles des
+     personnes qui se sont portées caution pour elles, commencent
+   {% endif %}
+   à compter du {{effective_at | date("LL")}}.
+
+   Les LOCATAIRES ACTUELS deviendront co-titulaires du contrat de bail avec
+   {% if enteringTenants.length == 1 %}
+     le NOUVEAU LOCATAIRE
+   {% else %}
+     les NOUVEAUX LOCATAIRES
+   {% endif %}
+   et seront obligés conjointement et solidairement.
+
+ {% endif %}
+</p>
+
+<h2>Dépôt de garantie</h2>
+<p>
+ Le contrat de bail se poursuit et
+ {% if lessors.length == 1 %}
+   le BAILLEUR n’est pas tenu
+ {% else %}
+   les BAILLEURS ne sont pas tenus
+ {% endif %}
+ de restituer tout ou partie du dépôt de garantie,
+ {% if currentTenants.length == 1 %}
+   le LOCATAIRE ACTUEL
+ {% else %}
+   les LOCATAIRES ACTUELS
+ {% endif %}
+ {% if enteringTenants.length == 1 %}
+   et le NOUVEAU LOCATAIRE
+ {% elif enteringTenants.length > 1 %}
+   et les NOUVEAUX LOCATAIRES
+ {% endif %}
+ faisant leur affaire d’une éventuelle compensation entre eux.
+</p>
+<!--<p>
+ Les preneurs s’engagent à verser la somme de 780 € (sept cent quatre-vingts euros) au bailleur, à
+ titre de dépôt de garantie de la bonne exécution de leurs obligations, conformément aux stipulations du bail initial.
+</p>-->
+
+<h2>Applications des dispositions du bail initial</h2>
+<p>
+ Les autres dispositions du contrat de bail restent inchangées.
+ {% if enteringTenants.length == 1 %}
+   Le NOUVEAU LOCATAIRE déclare accepter et consentir au bail d’habitation initial susvisé.
+   Il déclare avoir pris connaissance des dispositions du bail, et reconnait que celles-ci
+   s’appliquent à son égard dans leur intégralité.
+ {% elif enteringTenants.length > 1 %}
+   Les NOUVEAUX LOCATAIRES déclarent accepter et consentir au bail d’habitation initial susvisé.
+   Ils déclarent avoir pris connaissance des dispositions du bail, et reconnaissent que celles-ci
+   s’appliquent à leur égard dans leur intégralité.
+ {% endif %}
+</p>

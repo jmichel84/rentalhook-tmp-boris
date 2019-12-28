@@ -1,0 +1,29 @@
+<p>
+Gemäß § 553 Abs. 1 BGB
+{% if lessors.length == 1 %}
+bitte ich
+{% else %}
+bitten wir
+{% endif %} Sie um die Erlaubnis, einen Teil
+{% if building_type == 'flat'%}
+der gemieteten Wohnung
+{% else %}
+des gemieteten Hauses
+{% endif %} untervermieten zu dürfen.
+Als Untermieter/in ist Frau/Herrn {{subtenant.first_name}} {{subtenant.last_name}} (
+wohnhaft in
+{{subtenant.address.formatted_address}}) vorgesehen.
+<br/><br/>
+Folgende Räumlichkeiten werden untervermietet: {{sublease_rooms}}.
+Die Notwendigkeit der geplanten Untervermietung ergibt sich aus folgenden Gründen:
+{{sublease_reasons}}.
+<br/><br/>
+Der geplante Beginn des Untermietverhältnisses ist {{sublease_start}}.
+{% if subleaseterm == 'fixed'%}
+Der Untermietvertrag ist befristet und läuft bis zum {{fixedsubleasetermdate}}.
+{% else %}
+Dabei handelt es sich um einen unbefristeten Untermietvertrag.
+{% endif %}
+<br/><br/>
+Wir erwarten Ihre Antwort bis zum {{sublease_due}} und bedanken uns dafür im Voraus.
+</p>

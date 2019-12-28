@@ -1,0 +1,21 @@
+<p>
+Wie wir in Ihrem Mietvertrag vereinbart haben, sind Sie zur Zahlung der Kaution in Höhe von {{deposit | currency("EUR")}}
+verpflichtet. Die Zahlung der Mietkaution war zum {{deposit_due_date | date("LL")}} fällig.
+Leider
+{% if lessors.length == 1 %}
+  musste ich
+{% else %}
+  mussten wir
+{% endif %}
+feststellen, dass Sie trotz der vertraglichen Vereinbarung keine entsprechende Zahlung getätigt haben.
+Sollten Sie die Kaution nicht vor Ende des laufenden Monats oder künftige Mietbeträge nicht pünktlich bezahlen,
+{% if lessors.length == 1 %}
+  behalte ich mir
+{% else %}
+  behalten wir uns
+{% endif %} den Ausspruch einer außerordentlichen Kündigung des Mietvertrags vor.
+</p>
+<p>
+Sollten Sie in der Zwischenzeit die Rechnung beglichen haben, können Sie dieses Erinnerungsschreiben
+selbstverständlich als gegenstandslos betrachten.
+</p>

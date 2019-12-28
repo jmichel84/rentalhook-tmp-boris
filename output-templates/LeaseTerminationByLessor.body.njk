@@ -1,0 +1,38 @@
+<p>
+Hiermit kündige ich fristgemäß den Mietvertrag vom {{lease_effective_at | date("LL")}}
+{% if building_type == 'flat'%}
+für die von Ihnen angemietete Wohnung.
+{% else %} für das von Ihnen angemietete Haus.
+{% endif %}
+</p>
+<p>
+{% if building_type == 'flat'%}
+Da Ihnen die Wohnung am
+{% else %}
+Da Ihnen das Haus am
+{% endif %}
+{{transfer_date | date("LL")}}
+{% if is_furnished %}
+ möbliert
+{% endif %} überlassen wurde, betägt die Kündigungsfrist gemäß § 573 c Abs. 1 BGB
+vorliegend {{macros.duration(min_duration)}}.
+Gemäß § 573 Abs. 1 BGB wird das berechtigte Interesse für die Kündigung vorgewiesen:
+{{termination_reason}}.
+</p>
+<p>
+Das Mietverhältnis endet demnach am {{termination_date | date("LL")}}.
+</p>
+<p>
+Ich fordere Sie daher auf, die Mieträume nach Ablauf der Kündigung geräumt und in dem vertraglich
+vereinbarten Zustand mit allen dazugehörigen Schlüsseln zurückzugeben.
+Ich schlage Ihnen als Abnahmetermin den {{acceptance_date | date("LL")}} vor. Sollten Sie an diesem Termin
+verhindert sein, bitte ich Sie, mir Ihren Terminvorschlag umgehend mitzuteilen.
+</p>
+<p>
+Ich weise Sie bereits vorsorglich darauf hin, dass ich einer stillschweigenden Fortsetzung des
+Mietverhältnisses gemäß § 545 BGB widerspreche, sollten Sie zum Kündigungstermin nicht
+ausziehen. Bei nicht fristgerechter Rückgabe der Mietsache sehe ich mich gezwungen, eine
+Räumungsklage einzureichen. Daneben werde ich ab dem Endtermin des Mietverhältnisses
+Nutzungsentschädigung in Höhe der ortsüblichen Vergleichsmiete zuzüglich bislang gezahlter
+Nebenkostenvorschüsse verlangen.
+</p>

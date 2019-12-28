@@ -1,0 +1,30 @@
+<p>
+Hiermit
+{% if lessors.length == 1 %}
+bestätige ich
+{% else %}
+bestätigen wir
+{% endif %}
+den
+{% if confirmation_reason=='in' %}
+Einzug
+{% else %}
+Auszug
+{% endif %}
+{% if tenants.length > 1 %}
+{# TODO: tenants.length seems to work only after the second edit of the doc!#}
+{# TODO: 1) Where is "et" (and) translated?
+2) This is a letter, but I dont want to make the header dependant on the amount of th tenant,
+it should be always "sehr geehrte Damen und Herren"...What should we do? #}
+der Meldepflichtigen Personen
+tenants.length
+der Meldepflichtigen Person
+{% endif %} zum {{in_out_date}}
+<p>
+{% if tenants.length > 1 %}
+Namen der Mieter:
+{% else %}
+Name des Mieters bzw. der Mieterin:<br>
+{% endif %}
+{{macros.namesInline(tenants)}}
+</p>

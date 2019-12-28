@@ -1,0 +1,63 @@
+<template>
+  <section>
+    <p>
+      <label>
+        <input-title>Vor- und Nachname des Untermieters</input-title>
+          <full-name first-name.two-way="doc.subtenant.first_name"
+          last-name.two-way="doc.subtenant.last_name" required>
+        </full-name>
+      </label>
+    </p>
+    <p>
+      <label>
+        <input-title>Aktuelle Adresse des Untermieters</input-title>
+          <address-autocomplete address.two-way="doc.subtenant.address" required match-locale-country>
+          </address-autocomplete>
+       </label>
+     </p>
+  </section>
+  <section>
+  <p>
+    <input-title collapsed>Gründe für die Untervermietung
+      <span slot="hint">Listen Sie wesentliche Gründe für die Untervermietung auf. Bei den vorgelegten Gründen ist der Vermieter grundsätzlich verpflichtet, Ihren Antrag zu genehmigen</span>
+    </input-title>
+    <textarea style="width:100%" rows="3" cols="30" value.bind="doc.sublease_reasons"></textarea>
+  </p>
+  <p>
+    <input-title collapsed>Räume für die Untervermietung
+      <span slot="hint">Listen Sie auf, welche Räume der Wohnung untervermietet werden</span>
+    </input-title>
+    <textarea style="width:100%" rows="3" cols="30" value.bind="doc.sublease_rooms"></textarea>
+  </p>
+  </section>
+  <section>
+    <p>
+        <input-title collapsed>Wirksamkeitsdatum des Untermietvertrages
+          <span slot="hint">Tragen Sie das Datum des erwarteten Beginns des Untermietverhältnisses ein.</span>
+        </input-title>
+        <input type="text" size="10" datepicker value.two-way="doc.sublease_start | date" required>
+    </p>
+    <p>
+      <input-title collapsed>Frist für die Antwort des Vermieters
+          <span slot="hint">Nennen Sie eine angemessene Zeitspanne (z.B. 30 Tage), damit der Vermieter auf Ihren Antrag schriftlich reagieren kann.</span>
+        </input-title>
+        <input type="text" size="10" datepicker value.two-way="doc.sublease_due | date" required>
+    </p>
+    <input-title>Handelt es sich um einen befristeten Untermietvertrag?</input-title>
+    <p>
+    <choice>
+      <choice-option required name="nc-fixed-subleaseterm" selected.two-way="doc.subleaseterm"
+        key="fixed" label="Befristet"></choice-option>
+      <choice-option required name="nc-fixed-subleaseterm" selected.two-way="doc.subleaseterm"
+        key="notfixed" label="Unbefristet"></choice-option>
+    </choice>
+    </p>
+    <p if.bind="doc.subleaseterm=='fixed'">
+    <label>
+    <input-title>Untermietvertrag befristet zum</input-title>
+    <input type="text" size="10" datepicker value.two-way="doc.fixedsubleasetermdate | date" required>
+    <error if.bind="doc.fixedsubleasetermdate<doc.sublease_start">Die Beendigung des Untermietvertrages ist erst nach dem Inkraftreten möglich</error>
+    </label>
+  </p>
+  </section>
+</template>

@@ -1,0 +1,93 @@
+<template>
+  <section>
+    <p>
+      <input-title>Wer hat Ihnen über die Ruhestörungen mitgeteilt?</input-title>
+      <choice>
+        <choice-option required name="nc-nuisance-info-source" selected.two-way="doc.nuisance_info_scource"
+          key="neighbors" label="Nachbarn"></choice-option>
+        <choice-option required name="nc-nuisance-info-source" selected.two-way="doc.nuisance_info_scource"
+            key="other_tenants" label="Andere Mieter"></choice-option>
+        <choice-option required name="nc-nuisance-info-source" selected.two-way="doc.nuisance_info_scource"
+              key="official_bodies" label="Amtliche Behörden"></choice-option>
+      </choice>
+    </p>
+    <p>
+      <label>
+        <input-title>Wann konnte man die Ruhestörungen zum ersten Mal feststellen?</input-title>
+        <input datepicker type="text" size="10" value.bind="doc.nuisance_start_date | date" required>
+      </label>
+    </p>
+    <p>
+      <label>
+        <input-title collapsed>
+          Ruhestörungen
+          <span slot="hint">Beschreiben sie in Stichpunkten, welche Ruhestörungen vorgekommen sind.
+          z.B. laute Musik, Gesang, Lärmbelästigung durch Renovierung etc.</span>
+        </input-title>
+        <textarea style="width:100%" rows="3" cols="30" value.bind="doc.nuisance_activities" nobr required>
+        </textarea>
+      </label>
+    </p>
+    </section>
+    <section>
+    <p>
+      <label>
+        <input-title>Ab wieviel Uhr fing die Srörung an?
+        </input-title>
+        <input type="number" style="width: 5em;" min="0" max="24" step="1" value.bind="doc.nuisance_start_hour | number" required unit="Uhr">
+      </label>
+    </p>
+    <p>
+      <label>
+        <input-title>Bis wieviel Uhr ging es?
+        </input-title>
+        <input type="number" style="width: 5em;" min="0" max="24" step="1" value.bind="doc.nuisance_end_hour | number" required unit="Uhr">
+      </label>
+    </p>
+    <p>
+      <label>
+        <input-title>Nennen Sie Ihen Mietern Fristen zur Verbesserung des Verhaltens</input-title>
+        <input datepicker type="text" size="10" value.bind="doc.improvement_due | date" required>
+      </label>
+    </p>
+    </section>
+    <section>
+      <p>
+        <input-title>Ruhestörungen an Werktagen festgestellt?</input-title>
+        <choice>
+          <choice-option required name="nc-nuisance-workdays" selected.two-way="doc.nuisance_workdays"
+            key.bind="true" label="Ja"></choice-option>
+          <choice-option required name="nc-nuisance-workdays" selected.two-way="doc.nuisance_workdays"
+            key.bind="false" label="Nein"></choice-option>
+        </choice>
+      </p>
+      <p>
+        <input-title>Ruhestörungen an Wochenenden?</input-title>
+        <choice>
+          <choice-option required name="nc-nuisance-weekends" selected.two-way="doc.nuisance_weekends"
+            key.bind="true" label="Ja"></choice-option>
+          <choice-option required name="nc-nuisance-weekends" selected.two-way="doc.nuisance_weekends"
+            key.bind="false" label="Nein"></choice-option>
+        </choice>
+      </p>
+      <p>
+        <input-title>Ruhestörungen an Feiertagen?</input-title>
+        <choice>
+          <choice-option required name="nc-nuisance-holidays" selected.two-way="doc.nuisance_holidays"
+            key.bind="true" label="Ja"></choice-option>
+          <choice-option required name="nc-nuisance-holidays" selected.two-way="doc.nuisance_holidays"
+            key.bind="false" label="Nein"></choice-option>
+        </choice>
+      </p>
+      <p>
+        <input-title>Wiederholt es sich regelmäßig?</input-title>
+        <choice>
+          <choice-option required name="nc-nuisance-regularly" selected.two-way="doc.nuisance_regularly"
+            key.bind="true" label="Ja"></choice-option>
+          <choice-option required name="nc-nuisance-regularly" selected.two-way="doc.nuisance_regularly"
+            key.bind="false" label="Nein"></choice-option>
+        </choice>
+      </p>
+    </section>
+
+</template>

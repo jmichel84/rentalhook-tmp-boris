@@ -1,0 +1,68 @@
+<template>
+<section>
+<p>
+    <input-title collapsed>Handelt es sich um einen befristeten Mietvertrag?
+      <span slot="hint">
+        Bei einem befristeten Mietvertrag ist nur die außerordentliche Kündigung zulässig.
+      </span>
+    </input-title>
+    <choice>
+      <choice-option required name="nc-contract-fixedterm" selected.two-way="doc.is_fixedtermed"
+        key.bind="true" label="Ja"></choice-option>
+      <choice-option required name="nc-contract-fixedterm" selected.two-way="doc.is_fixedtermed"
+        key.bind="false" label="Nein"></choice-option>
+    </choice>
+</p>
+<p>
+  <input-title collapsed>Handelt es sich um einen möblierten Wohnraum?
+    <span slot="hint">
+      Bei einem möblierten Wohnraum ist die Kündigungsfrist von 14 Tagen zu beachten.
+    </span>
+  </input-title>
+  <choice>
+    <choice-option required name="nc-housing-furnished" selected.two-way="doc.is_furnished"
+      key.bind="true" label="Ja"></choice-option>
+    <choice-option required name="nc-housing-furnished" selected.two-way="doc.is_furnished"
+      key.bind="false" label="Nein"></choice-option>
+  </choice>
+</p>
+<p>
+    <label>
+      <input-title>Wirksamkeitsdatum des Mietvertrages</input-title>
+      <input type="text" size="10" datepicker required value.two-way="doc.lease_effective_at | date">
+    </label>
+</p>
+<p>
+    <label>
+      <input-title>Datum des Einzuges</input-title>
+      <input type="text" size="10" datepicker required value.two-way="doc.transfer_date | date">
+    </label>
+</p>
+<p>
+    <label>
+      <input-title>Datum der geplanten Kündigung</input-title>
+      <input type="text" size="10" datepicker required value.two-way="doc.termination_date | date">
+      <warning if.bind="doc.termination_date<doc.terminable_at">Die Kündigung ist frühestens zum ${doc.terminable_at | dateText} möglich
+      </warning>
+    </label>
+</p>
+</section>
+<section>
+<p>
+  <label>
+    <input-title>
+      Grund für die Kündigung
+      <span slot="hint">Gemäß § 573 Abs. 1 BGB müssen Sie ein berechtigtes Interesse für die Kündigung vorweisen
+      </span>
+    </input-title>
+    <textarea style="width:100%" rows="3" cols="30" value.bind="doc.termination_reason" nobr required></textarea>
+  </label>
+</p>
+<p>
+    <label>
+      <input-title>Datum der geplanten Übergabe</input-title>
+      <input type="text" size="10" datepicker required value.two-way="doc.acceptance_date | date">
+    </label>
+</p>
+</section>
+</template>

@@ -1,0 +1,79 @@
+<template>
+  <section>
+    <p>
+    <label>
+      <input-title>Seit wann sind Sie Mieter?</input-title>
+      <input type="text" size="10" datepicker value.two-way="doc.entry_date | date">
+      </label>
+    </p>
+    <p>
+        <input-title collapsed>Handelt es sich um einen befristeten Mietvertrag?
+          <span slot="hint">
+            Bei einem befristeten Mietvertrag ist nur die außerordentliche Kündigung zulässig.
+          </span>
+        </input-title>
+        <choice>
+          <choice-option required name="nc-contract-fixedterm" selected.two-way="doc.is_fixedtermed"
+            key.bind="true" label="Ja"></choice-option>
+          <choice-option required name="nc-contract-fixedterm" selected.two-way="doc.is_fixedtermed"
+            key.bind="false" label="Nein"></choice-option>
+        </choice>
+    </p>
+    <p>
+        <input-title collapsed>Kündigungsgrund
+          <span slot="hint">
+            - Im Normalfall betrgägt die Kündigungsfrist 3 Monate
+            </br>
+            - Eine fristlose Kündigung ist nur in Ausnahmen möglich. Hierfür muss ein wichtiger Kündigungsgrund
+            vorliegen, welcher auch in der Kündigung ausdrücklich genannt wird
+            </br>
+            - Für Sonderkündigungen ist die Wohnung bis zum Ende des 2. Monats für den Ablauf des übernächsten
+              Monats zu kündigen
+          </span>
+        </input-title>
+        <choice vertical>
+          <choice-option required name="nc-termination-reason" selected.two-way="doc.term_reason"
+            key="normal" label="Fristgeäße Kündigung (Normalfall)">
+          </choice-option>
+          <choice-option required name="nc-termination-reason" selected.two-way="doc.term_reason"
+            key="immediately" label="Fristlose Kündigung (z.B. wegen schwerer Mängel)">
+          </choice-option>
+          <choice-option required name="nc-termination-reason" selected.two-way="doc.term_reason"
+            key="specialcalse" label="Sonderkündigung (z.B. wegen Mieterhöhung)">
+          </choice-option>
+        </choice>
+        <error if.bind="doc.is_fixedtermed && doc.term_reason && doc.term_reason == 'normal'">Für den befristeten
+        Mietvertrag ist die fristgemäße Kündigung nicht zulässig</error>
+    </p>
+    <p if.bind="doc.term_reason && doc.term_reason !='normal'">
+      <label>
+        <input-title>
+          Begründung in Details
+          </input-title>
+        <textarea style="width:100%" rows="3" cols="30" value.bind="doc.termination_description" nobr required></textarea>
+      </label>
+    </p>
+    </section>
+    <section>
+      <p>
+        <input-title collapsed>Handelt es sich um einen möblierten Wohnraum?
+          <span slot="hint">
+            Bei einem möblierten Wohnraum ist die Kündigungsfrist von 14 Tagen zu beachten.
+          </span>
+        </input-title>
+        <choice>
+          <choice-option required name="nc-housing-furnished" selected.two-way="doc.is_furnished"
+            key.bind="false" label="Nein"></choice-option>
+          <choice-option required name="nc-housing-furnished" selected.two-way="doc.is_furnished"
+            key.bind="true" label="Ja"></choice-option>
+        </choice>
+      </p>
+    <p>
+    <label>
+      <input-title>Zu welchem Datum wird der Mietvertrag gekündigt?</input-title>
+      <input type="text" size="10" datepicker value.two-way="doc.termination_date | date">
+      <warning if.bind="doc.termination_date<doc.terminable_at">Die Kündigung ist frühestens zum ${doc.terminable_at | dateText} möglich
+    </label>
+    </p>
+  </section>
+</template>

@@ -1,0 +1,212 @@
+[
+  {
+    "type": "myFirstDocument",
+    "class": "letterFromLessorsToTenants",
+    "name": "Mein erstes Dokument",
+    "category": "lease",
+    "roles": ["lessor"],
+    "mailable": "standard",
+    "esignable": false,
+    "description": "Ein sehr wichtiges Dokument"
+  },
+  {
+    "type": "leaseInventory",
+    "class": "agreementForLeaseInventory",
+    "name": "Übergabeprotokoll",
+    "category": "lease",
+    "roles": ["lessor"],
+    "mailable": false,
+    "esignable": true,
+    "description": "Wohnungsübergabeprotokoll für den Ein- und Auszug"
+  },
+  {
+    "type": "leaseTerminationByTenant",
+    "class": "letterFromTenantsToLessors",
+    "name": "Kündigung durch den Mieter",
+    "category": "lease",
+    "roles": ["tenant"],
+    "mailable": "registered",
+    "esignable": false,
+    "description": "Hiermit kündigen Sie den aktuellen Mietvertrag mit Ihrem Vermieter."
+  },
+  {
+    "type": "rentReceipt",
+    "class": "letterFromLessorsToTenants",
+    "name": "Mietquittung",
+    "category": "rent",
+    "roles": ["lessor"],
+    "mailable": "standard",
+    "esignable": false,
+    "description": "Mit dieser Mietquittung bestätigen Vermieter gegenüber Mietern den Eingang einer bzw. mehrerer Mietzahlungen."
+  },
+  {
+    "type": "lease",
+    "class": "agreementForLease",
+    "name": "Mietvertrag",
+    "category": "lease",
+    "roles": ["lessor"],
+    "mailable": false,
+    "esignable": true,
+    "description": "Durch den Mietvertrag wird der Vermieter verpflichtet, dem Mieter die Wohnung zur Benutzung zu überlassen. Der Mieter wird demgegenüber verpflichtet, an den Vermieter die vertraglich vereinbarte die Miete zu zahlen und die Benutzung nur im vertraglich festgelegten Rahmen auszuüben."
+  },
+  {
+    "type": "sublease",
+    "class": "agreementForSublease",
+    "name": "Untermietvertrag",
+    "category": "lease",
+    "roles": ["sublessor"],
+    "mailable": false,
+    "esignable": true,
+    "description": "Ein Untermietvertrag ist ein gegenseitiger Vertrag zwischen dem Mieter (dem Hauptmieter) einer Wohnung und einem Dritten, dem Untermieter. Der Hauptmieter kann entweder die gesamte Wohnfläche oder auch nur einen Teil bzw. Teile davon untervermieten."
+  },
+  {
+    "type": "leaseTerminationByLessor",
+    "class": "letterFromLessorsToTenants",
+    "name": "Kündigung durch den Vermieter",
+    "category": "lease",
+    "roles": ["lessor"],
+    "mailable": "registered",
+    "esignable": false,
+    "description": "Vermieter können den Mietvertrag unter Einhaltung der gesetzlichen Kündigungsfrist unter bestimmten Voraussetzungen kündigen."
+  },
+  {
+    "type": "subleaseTerminationBySublessor",
+    "class": "letterFromSublessorsToSubtenants",
+    "name": "Kündigung des Untermietvertrages durch den Hauptmieter",
+    "category": "lease",
+    "roles": ["sublessor"],
+    "mailable": "registered",
+    "esignable": false,
+    "description": "Beendet das Mietverhältis mit den Untermietern."
+  },
+  {
+    "type": "subleaseTerminationBySubtenant",
+    "class": "letterFromSubtenantsToSublessors",
+    "name": "Kündigung des Untermietvertrages durch den Untermieter",
+    "category": "lease",
+    "roles": ["subtenant"],
+    "mailable": "registered",
+    "esignable": false,
+    "description": "Beendet das Mietverhältis mit dem Hauptmieter."
+  },
+  {
+    "type": "subleaseAuthorizationRequest",
+    "class": "letterFromTenantsToLessors",
+    "name": "Antrag auf Untervermietung",
+    "category": "subleaseAuthorization",
+    "roles": ["tenant", "sublessor"],
+    "mailable": "standard",
+    "esignable": false,
+    "description": "Beantragen Sie die Zustimmung des Vermieters für die Untervermietung des gesamten oder eines Teils des Wohnraums."
+  },
+  {
+    "type": "subleaseAuthorization",
+    "class": "letterFromLessorsToTenants",
+    "name": "Bewilligung zur Untervermietung",
+    "category": "subleaseAuthorization",
+    "roles": ["lessor"],
+    "mailable": "standard",
+    "esignable": false,
+    "description": "Mit diesem Dokument können Vermieter eine Untervermietungserlaubnis für Mieter erteilen."
+  },
+  {
+    "type": "unauthorizedSubleaseNotice",
+    "class": "letterFromLessorsToTenants",
+    "name": "Abmahnung wegen unerlaubter Untervermietung",
+    "category": "subleaseAuthorization",
+    "roles": ["lessor"],
+    "mailable": "registered",
+    "esignable": false,
+    "description": "Dieses Muster soll es dem Vermieter erleichtern, eine wirksame Abmahnung auszusprechen, die den Weg für die Ausübung weiterer Rechte im Falle einer unerlaubtnen Untervermietung ebnet."
+  },
+  {
+    "type": "unpaidRentsNotice",
+    "class": "letterFromLessorsToTenants",
+    "name": "Abmahnung wegen Zahlungsverzug",
+    "category": "rent",
+    "roles": ["lessor"],
+    "mailable": "registered",
+    "esignable": false,
+    "description": "Sind Mieter mit der Zahlung ihrer Miete im Rückstand, haben Sie als Vermieter die Möglichkeit, eine Abmahnung wegen Zahlungsverzug auszusprechen."
+  },
+  {
+    "type": "depositReceipt",
+    "class": "letterFromLessorsToTenants",
+    "name": "Quittung über den Erhalt der Mietkaution",
+    "category": "deposit",
+    "roles": ["lessor"],
+    "mailable": "standard",
+    "esignable": false,
+    "description": "Hiermit bestätigt der Vermieter, dass er die vollständige Kaution erhalten hat."
+  },
+  {
+    "type": "depositDunningLetter",
+    "class": "letterFromLessorsToTenants",
+    "name": "Mahnung wegen nicht gezahlter Kaution",
+    "category": "deposit",
+    "roles": ["lessor"],
+    "mailable": "registered",
+    "esignable": false,
+    "description": "Bleibt der Mieter einen Betrag in Höhe von zwei Monatsmieten oder einer Kaution schuldig, ist eine fristlose Kündigung möglich. Um nicht gleich die Kündigung auszusprechen, ist es sinnvoll, ihn zunächst mit einem Mahnbescheid an die Zahlung der Mietkaution zu erinnern"
+  },
+  {
+    "type": "requestForDefectElimination",
+    "class": "letterFromLessorsToTenants",
+    "name": "Aufforderung zur Mängelbeseitigung",
+    "category": "deposit",
+    "roles": ["lessor"],
+    "mailable": "registered",
+    "esignable": false,
+    "description": "Wenn Sie die als Vermieter wegen eines berechtigten Anspruchs für nicht oder mangelhaft ausgeführte Schönheitsreparaturen und Renovierungsarbeiten die Kaution ganz oder teilweise einbehalten wollen."
+  },
+  {
+    "type": "nuisanceCessationNotice",
+    "class": "letterFromLessorsToTenants",
+    "name": "Abmahnung wegen Ruhestörung",
+    "category": "nuisance",
+    "roles": ["lessor"],
+    "mailable": "registered",
+    "esignable": false,
+    "description": "Eine Abmahnung wegen Ruhestörung sollten Sie als Vermieter in schriftlicher Form einreichen. Zwar sind auch mündliche, formlose Abmahnungen möglich – diese können aber im Streitfall schwer nachgewiesen werden."
+  },
+  {
+    "type": "inspectionAppointmentScheduling",
+    "class": "letterFromLessorsToTenants",
+    "name": "Ankündigung einer Wohnungs- oder Hausbesichtigung",
+    "category": "visit",
+    "roles": ["lessor"],
+    "mailable": "standard",
+    "esignable": false,
+    "description": "Sie als Vermieter dürfen die Wohnung mit Begründung besichtigen. Die Besichtigung muss fristgerecht angekündigt werden, abhängig von der Situation des Mieters."
+  },
+  {
+    "type": "maintenanceWorkNotification",
+    "class": "letterFromLessorsToTenants",
+    "name": "Ankündigung von Modernisierungsmaßnahmen",
+    "category": "works",
+    "roles": ["lessor"],
+    "mailable": "standard",
+    "esignable": false,
+    "description": "Modernisierungsmaßnahmen verbessern die Wohnqualität und die Werthaltigkeit der Immobilie. Sie gehen über die reinen Erhaltungsmaßnahmen hinaus. Da die damit einhergehenden Baumaßnahmen den Mieter regelmäßig beeinträchtigen, verpflichtet das Gesetz den Vermieter, die Modernisierungsmaßnahme spätestens 3 Monate vor dem Beginn anzukündigen."
+  },
+  {
+    "type": "leaseInventory",
+    "class": "agreementForLease",
+    "name": "Inventarliste",
+    "category": "lease",
+    "roles": ["lessor"],
+    "mailable": false,
+    "esignable": true,
+    "description": "Schriftliche Fixierung vor der Schlüsselübergabe, üblich bei der Vermietung von Ferienwohnungen oder möbliertem Wohnraum."
+  },
+  {
+    "type": "lessorsConfirmation",
+    "class": "letterFromLessorsToTenants",
+    "name": "Vermieterbestätigung",
+    "category": "lease",
+    "roles": ["lessor"],
+    "mailable": "standard",
+    "esignable": false,
+    "description": "Vermieterbescheinigung gemäß § 19 Absatz 3 Bundesmeldegesetz – zur Vorlage bei der Meldebehörde"
+  }
+]

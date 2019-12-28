@@ -1,0 +1,21 @@
+<template>
+
+  <section>
+    <p>
+      <label>
+        <input-title>Datum und die Uhrzeit der geplanten Besichtigung</input-title>
+        <input style="width:100%" type="text" value.bind="doc.inspection_period" maxlength="100" required trim>
+      </label>
+    </p>
+    <p>
+      <label>
+        <input-title>
+          Grund für die Besichtigung
+        </input-title>
+        <textarea style="width:100%" rows="3" cols="30" value.bind="doc.inspection_reson" nobr required>
+        </textarea>
+      </label>
+    </p>
+  </section>
+
+</template>

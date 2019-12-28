@@ -1,0 +1,24 @@
+<template>
+<section>
+  <p>
+    <input-title collapsed>Räume für die Untervermietung
+      <span slot="hint">Listen Sie auf, welche Räume der Wohnung untervermietet werden</span>
+    </input-title>
+    <textarea style="width:100%" rows="3" cols="30" value.bind="doc.sublease_rooms"></textarea>
+  </p>
+  <p>
+    <label>
+      <input-title>Vor- und Nachname des Untermieters</input-title>
+        <full-name first-name.two-way="doc.subtenant.first_name"
+        last-name.two-way="doc.subtenant.last_name" required>
+      </full-name>
+    </label>
+  </p>
+  <p>
+    <input-title collapsed>Gründe für die Untervermietung
+      <span slot="hint">Listen Sie Ihnen genannten Gründe für die Untervermietung auf.</span>
+    </input-title>
+    <textarea style="width:100%" rows="3" cols="30" value.bind="doc.sublease_reasons"></textarea>
+  </p>
+</section>
+</template>
